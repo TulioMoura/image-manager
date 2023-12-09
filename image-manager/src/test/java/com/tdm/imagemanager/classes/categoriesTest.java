@@ -1,0 +1,63 @@
+import com.tdm.imagemanager.classes.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import java.beans.Transient;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+class categoriesTest{
+    private final Category category = new Category("teste");
+
+    @Test
+    void constructorTest(){
+    assertEquals("teste",category.getName());
+    }
+
+    @Test
+    void creationDataTest(){
+        String dateOnObjetct = category.getDate().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
+        String currentDate = category.getDate().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
+
+        System.out.println(dateOnObjetct);
+        assertEquals(currentDate, dateOnObjetct);
+    }
+
+    @Test
+    void getNameTest(){
+        assertEquals("teste",category.getName() );
+    }
+
+    @Test 
+    void setNameTest(){
+        category.setName("tulio");
+        assertEquals("tulio", category.getName());
+    }
+
+    @Test
+    void getImagesTest()throws Exception{
+        category.addImage("id1");
+        assertTrue(category.getImages().contains("id1"));        
+    }
+
+    @Test 
+    void addImagesTest() throws Exception{
+        category.addImage("id2");
+        category.addImage("id23");
+
+        ArrayList<String> result = category.getImages();
+
+        assertTrue(result.contains("id2"));
+        assertTrue(result.contains("id23"));
+    }
+
+    @Test
+    void removeImageTest()throws Exception{
+        category.addImage("id2remove");
+        category.removeImage("id2remove");
+        ArrayList<String> result = category.getImages();
+
+        assertFalse(result.contains("id2remove"));
+    }
+}
