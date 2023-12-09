@@ -1,8 +1,9 @@
+package com.tdm.imagemanager.classes;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.lang.Exception;
 import java.lang.String;
-import java.lang.invoke.StringConcatException;
 
 public class Category{
     private String name;

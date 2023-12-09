@@ -1,3 +1,4 @@
+package com.tdm.imagemanager.classes;
 import com.tdm.imagemanager.classes.*;
 
 import java.util.ArrayList;
@@ -8,12 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class ImageDescriptorTest{
-    ArrayList<String> characteristics = new ArrayList<String>();
-    characteristics.add("car");
-    characteristics.add("blue");
-    characteristics.add("volkwagen")
-    Image thumbnail = new Image();
-    private final ImageDescriptor = new ImageDescriptor("testeteste", characteristics, thumbnail);
+    private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor("testeteste", new ArrayList<String>(), new Image());
 
     
 

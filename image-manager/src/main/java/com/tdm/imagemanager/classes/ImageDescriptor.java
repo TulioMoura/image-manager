@@ -1,6 +1,7 @@
+package com.tdm.imagemanager.classes;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.lang.Exception;
 import java.lang.String;
 
 public class ImageDescriptor{
@@ -18,7 +19,7 @@ public class ImageDescriptor{
     public ArrayList<String> getCharacteristics(){
         return characteristics;
     }
-    public Image getThumbnail{
+    public Image getThumbnail(){
         return thumbnail;
     }
 
@@ -31,7 +32,7 @@ public class ImageDescriptor{
     }
 
     public void removeAllCharacteristics(){
-        characteristics = new ArrayList<String>;
+        characteristics = new ArrayList<String>();
     }
 
     public void setThumbnail(Image thumbnail){
