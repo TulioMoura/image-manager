@@ -37,4 +37,10 @@ public class ImageDescriptor{
     public void setThumbnail(Image thumbnail){
         this.thumbnail = thumbnail;
     }
+
+    public ImageDescriptor(String uuid,ArrayList<String> characteristics, Image thumbnail){
+        this.characteristics = characteristics;
+        this.thumbnail = thumbnail;
+        this.uuid = uuid;
+    }
 }
