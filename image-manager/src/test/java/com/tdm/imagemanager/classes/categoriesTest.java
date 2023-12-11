@@ -19,8 +19,8 @@ class categoriesTest{
 
     @Test
     void creationDataTest(){
-        String dateOnObjetct = category.getDate().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
-        String currentDate = category.getDate().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
+        String dateOnObjetct = category.getDate().toString().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
+        String currentDate = new Date().toString().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
 
         System.out.println(dateOnObjetct);
         assertEquals(currentDate, dateOnObjetct);

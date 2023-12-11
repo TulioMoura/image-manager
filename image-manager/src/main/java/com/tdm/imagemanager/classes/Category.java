@@ -14,8 +14,8 @@ public class Category{
         return name;
     }
 
-    public String getDate(){
-        return dataInclusão.toString();
+    public Date getDate(){
+        return this.dataInclusão;
     }
 
     public ArrayList<String>getImages(){
