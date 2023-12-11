@@ -43,5 +43,6 @@ public class ImageDescriptor{
         this.characteristics = characteristics;
         this.thumbnail = thumbnail;
         this.uuid = uuid;
+        this.uploadDate = new Date();
     }
 }
