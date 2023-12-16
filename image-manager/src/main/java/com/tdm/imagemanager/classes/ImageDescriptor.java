@@ -8,7 +8,6 @@ public class ImageDescriptor{
     private String uuid;
     private Date uploadDate;
     private ArrayList<String> characteristics;
-    private Image thumbnail;
 
     public String getId(){
         return uuid;
@@ -19,10 +18,7 @@ public class ImageDescriptor{
     public ArrayList<String> getCharacteristics(){
         return characteristics;
     }
-    public Image getThumbnail(){
-        return thumbnail;
-    }
-
+    
     public void addCharacteristic(String charcateristic){
         characteristics.add(charcateristic);
     }
@@ -35,13 +31,10 @@ public class ImageDescriptor{
         characteristics = new ArrayList<String>();
     }
 
-    public void setThumbnail(Image thumbnail){
-        this.thumbnail = thumbnail;
-    }
 
-    public ImageDescriptor(String uuid,ArrayList<String> characteristics, Image thumbnail){
+
+    public ImageDescriptor(String uuid,ArrayList<String> characteristics){
         this.characteristics = characteristics;
-        this.thumbnail = thumbnail;
         this.uuid = uuid;
         this.uploadDate = new Date();
     }

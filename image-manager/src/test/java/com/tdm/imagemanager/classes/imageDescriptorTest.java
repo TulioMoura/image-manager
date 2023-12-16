@@ -1,21 +1,15 @@
 package com.tdm.imagemanager.classes;
-import com.tdm.imagemanager.classes.*;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.beans.Expression;
-import java.beans.Transient;
-import java.lang.reflect.Array;
+
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 class ImageDescriptorTest{
-    private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor(
-        "testeteste",
-        new ArrayList<String>(),
-        new Image());
+    private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor("testeteste", new ArrayList<String>());
 
     @Test
     void getIdTest(){
@@ -68,11 +62,7 @@ class ImageDescriptorTest{
         assertEquals(currentDate, dateOnObjetct);
     }
 
-    @Test
-    void getThumbnailTest(){
-        assertEquals(Image.class,imageDescriptorInstance.getThumbnail().getClass());
-    }
-
+    
 
     @Test
         void constructorTest(){
