@@ -3,19 +3,22 @@ import com.tdm.imagemanager.classes.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.ImageIcon;
+
 import java.beans.Expression;
 import java.beans.Transient;
 import java.lang.reflect.Array;
+import java.awt.Image;
+import java.awt.Image.*;
+import java.awt.image.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 
 class ImageDescriptorTest{
-    private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor(
-        "testeteste",
-        new ArrayList<String>(),
-        new Image());
+    private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor(null, null, null);
 
     @Test
     void getIdTest(){
