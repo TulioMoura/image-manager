@@ -27,6 +27,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+    		<groupId>net.imagej</groupId>
+    		<artifactId>ij</artifactId>
+    		<version>1.51h</version>
+		</dependency>
 	</dependencies>
 
 	<build>
