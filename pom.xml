@@ -33,6 +33,11 @@
     		<artifactId>ij</artifactId>
     		<version>1.51h</version>
 		</dependency>
+		<dependency>
+        	<groupId>org.xerial</groupId>
+        	<artifactId> sqlite-jdbc</artifactId>
+        	<version>3.25.2</version>
+    	</dependency>
 	</dependencies>
 
 	<build>
