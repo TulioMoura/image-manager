@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DaoImplTests;
+package com.tdm.imagemanager.imageDaoToLocalFolderTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,10 +8,10 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import com.tdm.imagemanager.DAO.implementations.imageDaoImpl;
+import com.tdm.imagemanager.DAO.implementations.imageDaoToLocalFolder;
 
-public class imageDaoImplTest {
-    private final imageDaoImpl imageDAO = new imageDaoImpl();
+public class imageDaoToLocalFolderTest {
+    private final imageDaoToLocalFolder imageDAO = new imageDaoToLocalFolder();
 
     @Test
     void saveImageTest() {
@@ -32,7 +32,8 @@ public class imageDaoImplTest {
     void deleteImageTest(){
         try{
         String result = imageDAO.deleteImage("testeteste123");
-        assertEquals("Imagem deletada!",result);
+        assertEquals("Image deleted!",result);
+        System.out.println(result);
         }
         catch (IOException exe){
             System.out.println(exe);

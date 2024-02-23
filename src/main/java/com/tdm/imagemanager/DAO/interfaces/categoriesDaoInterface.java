@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.tdm.imagemanager.classes.Category;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import java.lang.String;
-interface categoriesDaoInterface{
+public interface categoriesDaoInterface{
     public ArrayList<Category>getAllCategories();
     public Category getOneCategory(String name);
     public Category saveDescriptor(Category category);

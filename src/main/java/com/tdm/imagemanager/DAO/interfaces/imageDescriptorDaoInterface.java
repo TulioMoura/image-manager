@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import java.lang.String;
-interface imgageDescriptorDaoInterface{
-    public ArrayList<ImageDescriptor>getAllDescriptors();
-    public ImageDescriptor getOneDescriptor(String id);
-    public ImageDescriptor saveDescriptor(ImageDescriptor imageDescriptor);
-    public void deleteDescriptor(String id) throws Exception;
+public interface imageDescriptorDaoInterface{
+    public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception;
+    public ImageDescriptor getOneDescriptor(String id)throws Exception;
+    public boolean saveDescriptor(ImageDescriptor imageDescriptor)throws Exception;
+    public boolean deleteDescriptor(String id) throws Exception;
 }
