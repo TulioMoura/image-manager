@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DAO.implementations;
+package com.tdm.imagemanager.DAO.implementations.localFolder;
 
 import java.io.File;
 import java.io.IOException;

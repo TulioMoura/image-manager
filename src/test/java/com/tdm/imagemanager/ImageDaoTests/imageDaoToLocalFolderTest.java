@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.imageDaoToLocalFolderTest;
+package com.tdm.imagemanager.ImageDaoTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import com.tdm.imagemanager.DAO.implementations.imageDaoToLocalFolder;
+import com.tdm.imagemanager.DAO.implementations.localFolder.imageDaoToLocalFolder;
 
 public class imageDaoToLocalFolderTest {
     private final imageDaoToLocalFolder imageDAO = new imageDaoToLocalFolder();

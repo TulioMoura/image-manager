@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DaoImplTests;
+package com.tdm.imagemanager.imageDescriptorDaoTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Order;
@@ -9,7 +9,7 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.tdm.imagemanager.DAO.implementations.imageDescriptorDaoSQLite;
+import com.tdm.imagemanager.DAO.implementations.sqlite.imageDescriptorDaoSQLite;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 
 

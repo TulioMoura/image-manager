@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DAO.implementations;
+package com.tdm.imagemanager.DAO.implementations.sqlite;
 
 
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
