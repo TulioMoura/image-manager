@@ -38,4 +38,10 @@ public class ImageDescriptor{
         this.uuid = uuid;
         this.uploadDate = new Date();
     }
+
+    public ImageDescriptor(String uuid,Date uploadDate,ArrayList<String> characteristics){
+        this.characteristics = characteristics;
+        this.uuid = uuid;
+        this.uploadDate = uploadDate;
+    }
 }

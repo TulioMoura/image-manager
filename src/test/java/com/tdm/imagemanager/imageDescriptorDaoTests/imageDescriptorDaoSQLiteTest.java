@@ -39,9 +39,8 @@ public class imageDescriptorDaoSQLiteTest {
         assertDoesNotThrow(()->{
             boolean result= imageDaoImpl.saveDescriptor(imgDescriptor);
             boolean result2= imageDaoImpl.saveDescriptor(newDescriptor);
-            System.out.println(1);
-            System.out.println("lklkkkjlklk");
             assertTrue(result);
+            assertTrue(result2);
         });
     }
 
@@ -50,8 +49,11 @@ public class imageDescriptorDaoSQLiteTest {
     void getDescriptorTest(){
         assertDoesNotThrow(()->{
             ImageDescriptor  result = imageDaoImpl.getOneDescriptor(imgDescriptor.getId());
-            System.out.println(2);
-            assertEquals(imgDescriptor, result);
+            System.out.println(imgDescriptor.getId()+" "+imgDescriptor.getDate()+" "+imgDescriptor.getCharacteristics());
+            System.out.println(result.getId()+" "+result.getDate()+" "+result.getCharacteristics());
+            assertEquals(imgDescriptor.getId(), result.getId());
+            assertEquals(imgDescriptor.getDate(), result.getDate());
+            assertEquals(imgDescriptor.getCharacteristics(), result.getCharacteristics());
         });
     }
 
@@ -68,7 +70,6 @@ public class imageDescriptorDaoSQLiteTest {
 
             //test
             ArrayList<ImageDescriptor> result = imageDaoImpl.getAllDescriptors();
-            System.out.println(3);
             assertEquals(expectedList, result);
         });
     }
@@ -79,7 +80,6 @@ public class imageDescriptorDaoSQLiteTest {
         assertDoesNotThrow(()->{
             boolean result = imageDaoImpl.deleteDescriptor(imgDescriptor.getId());
             boolean result2 = imageDaoImpl.deleteDescriptor(newDescriptor.getId());
-            System.out.println(4);
             assertTrue(result2);
             assertTrue(result);
         });
