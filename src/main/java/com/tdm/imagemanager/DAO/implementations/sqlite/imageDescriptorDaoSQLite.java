@@ -4,6 +4,7 @@ package com.tdm.imagemanager.DAO.implementations;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -72,19 +73,14 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     public boolean deleteDescriptor(String id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            String query = "delete from imageDescriptor where uuid ='"+id+"';";
+
+            String query = "delete from imageDescriptor where uuid='"+id+"';";
             System.out.println(query);
             PreparedStatement s = c.prepareStatement(query);
-            s.execute();
-            System.out.println(s.getUpdateCount());
+            boolean res = s.execute();
 
-            String query2 = "select * from imageDescriptor where uuid='"+id+"';";
-            PreparedStatement P  = c.prepareStatement(query2);
-
-            P.execute();
-            ResultSet r = P.getResultSet();
-            System.out.println(r.getString("characteristics"));
-
+            s.close();
+            
             return true;
         } catch (SQLException ex) {
             

@@ -1,27 +1,26 @@
 package com.tdm.imagemanager.DaoImplTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.Order;
 import java.beans.Transient;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.AfterAll;
 
 import org.junit.jupiter.api.*;
 
 import com.tdm.imagemanager.DAO.implementations.imageDescriptorDaoSQLite;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class imageDescriptorDaoSQLiteTest {
     private final imageDescriptorDaoSQLite imageDaoImpl= new imageDescriptorDaoSQLite();
     private static  ImageDescriptor imgDescriptor, newDescriptor;
 
     @BeforeAll
     static void initDescriptor(){
+
         ArrayList<String> caracteristics =  new ArrayList<String>();
         caracteristics.add("carro0");
         caracteristics.add("casa");
@@ -34,24 +33,30 @@ public class imageDescriptorDaoSQLiteTest {
 
     }
 
-    @Test @Order(1)
+    @Test
+    @Order(1)
     void saveDescriptorTest(){
         assertDoesNotThrow(()->{
             boolean result= imageDaoImpl.saveDescriptor(imgDescriptor);
             boolean result2= imageDaoImpl.saveDescriptor(newDescriptor);
+            System.out.println(1);
+            System.out.println("lklkkkjlklk");
             assertTrue(result);
         });
     }
 
-    @Test @Order(2)
+    @Test
+    @Order(2)
     void getDescriptorTest(){
         assertDoesNotThrow(()->{
             ImageDescriptor  result = imageDaoImpl.getOneDescriptor(imgDescriptor.getId());
+            System.out.println(2);
             assertEquals(imgDescriptor, result);
         });
     }
 
-    @Test @Order(3)
+    @Test
+    @Order(2)
     void getAllDescriptorsTest(){
         assertDoesNotThrow(()->{
             
@@ -63,15 +68,18 @@ public class imageDescriptorDaoSQLiteTest {
 
             //test
             ArrayList<ImageDescriptor> result = imageDaoImpl.getAllDescriptors();
+            System.out.println(3);
             assertEquals(expectedList, result);
         });
     }
 
-    @Test @Order(4)
+    @Test
+    @Order(3)
     void deleteDescriptorTest(){
         assertDoesNotThrow(()->{
             boolean result = imageDaoImpl.deleteDescriptor(imgDescriptor.getId());
             boolean result2 = imageDaoImpl.deleteDescriptor(newDescriptor.getId());
+            System.out.println(4);
             assertTrue(result2);
             assertTrue(result);
         });
