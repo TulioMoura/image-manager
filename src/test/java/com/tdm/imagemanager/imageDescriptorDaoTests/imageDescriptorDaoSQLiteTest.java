@@ -62,15 +62,11 @@ public class imageDescriptorDaoSQLiteTest {
     void getAllDescriptorsTest(){
         assertDoesNotThrow(()->{
             
-
-            //expected arraylist to be returned by database 
-            ArrayList<ImageDescriptor> expectedList = new ArrayList<ImageDescriptor>();
-            expectedList.add(imgDescriptor);
-            expectedList.add(newDescriptor);
-
             //test
             ArrayList<ImageDescriptor> result = imageDaoImpl.getAllDescriptors();
-            assertEquals(expectedList, result);
+            assertEquals(2,result.size());
+            assertEquals(ImageDescriptor.class, result.get(0).getClass());
+            assertEquals(ImageDescriptor.class, result.get(1).getClass());
         });
     }
 

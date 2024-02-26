@@ -115,8 +115,42 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     
     };
     public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception{
-        System.out.println("not IMplemented");
-        return new ArrayList<ImageDescriptor>();
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+
+            String query = "select * from imageDescriptor;";
+            PreparedStatement s = c.prepareStatement(query);
+            ResultSet result = s.executeQuery();
+            //int updatedRows = s.getUpdateCount();
+            
+            ArrayList<ImageDescriptor> response = new ArrayList<ImageDescriptor>();
+            do{
+                String id = result.getString("uuid");
+                long updatedAt = result.getLong("uploadDate");
+                String characteristicsString = result.getString("characteristics");
+                String characteristicsArray[] = characteristicsString.split("\n");
+                ArrayList<String> characteristicsArrayList = new ArrayList<String>();
+                for (String string : characteristicsArray) {
+                    characteristicsArrayList.add(string);
+                }
+                ImageDescriptor img = new ImageDescriptor(id,new Date(updatedAt),characteristicsArrayList);
+                response.add(img);
+                result.next();
+            } while(result.next());
+            s.close();
+            return response;
+            
+
+        } catch (SQLException ex) {
+            
+            throw new Exception("sql exception: " + ex.getMessage());
+
+            
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
 
     };
     public boolean deleteDescriptor(String id) throws Exception{
