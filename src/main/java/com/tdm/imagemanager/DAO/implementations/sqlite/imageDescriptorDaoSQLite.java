@@ -4,7 +4,6 @@ package com.tdm.imagemanager.DAO.implementations.sqlite;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,29 +14,10 @@ import java.util.Date;
 
 public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
 
-    private boolean sync(Connection c) throws Exception{
-        //sincroniza a tabela do banco de dados, ou seja,verifica se a tabela e existe
-        // em caso negativo cria a tabela
-        try{
-            PreparedStatement s = c.prepareStatement(
-            "CREATE TABLE IF NOT EXISTS imageDescriptor ("+
-	        "uuid TEXT(36) NOT NULL,"+
-	        "uploadDate INTEGER NOT NULL,"+
-	        "characteristics TEXT(256) NOT NULL,"+
-	        "CONSTRAINT imageDescriptor_pk PRIMARY KEY (uuid));");
-
-            
-            boolean execute = s.execute();
-            return execute;
-        } catch (SQLException ex) {
-            throw new Exception("sql exception: " + ex.getMessage());
-        }
-               
-    }
+    
 
     private Connection connect() throws Exception{
         Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-        sync(connection);
         return connection;
     }
 
