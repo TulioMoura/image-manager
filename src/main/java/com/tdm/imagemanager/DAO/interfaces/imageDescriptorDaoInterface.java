@@ -8,10 +8,11 @@ public interface imageDescriptorDaoInterface{
     public boolean addDescriptorToCategories(String idDescriptor, ArrayList<String> categoriesIds) throws Exception;
     public boolean addDescriptorToGalleries(String idDescriptor, ArrayList<String> galleriesIds) throws Exception;
 
+    public ImageDescriptor getDescriptor(String id)throws Exception;
     public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception;
     public ArrayList<ImageDescriptor>getDescriptorsByCategory(String id) throws Exception;
     public ArrayList<ImageDescriptor>getDescriptorsByGallery(String id) throws Exception;
-    public ImageDescriptor getOneDescriptor(String id)throws Exception;
+    
 
     public boolean removeDescriptorFromCategory(String idDescriptor, String categoryDescriptor) throws Exception;
     public boolean removeDescriptorFromGallery(String idDescriptor, String galleryDescriptor) throws Exception;

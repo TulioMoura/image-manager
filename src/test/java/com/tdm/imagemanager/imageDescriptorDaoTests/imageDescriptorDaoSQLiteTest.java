@@ -46,7 +46,20 @@ public class imageDescriptorDaoSQLiteTest {
 
     @Test
     @Order(2)
+    void addDescriptorToCategoriesTest(){
+
+    }
+
+    @Test
+    @Order(2)
+    void addDescriptorToGalleriesTest(){
+
+    }
+
+    @Test
+    @Order(2)
     void getDescriptorTest(){
+    
         assertDoesNotThrow(()->{
             ImageDescriptor  result = imageDaoImpl.getOneDescriptor(imgDescriptor.getId());
             System.out.println(imgDescriptor.getId()+" "+imgDescriptor.getDate()+" "+imgDescriptor.getCharacteristics());
@@ -59,7 +72,7 @@ public class imageDescriptorDaoSQLiteTest {
 
     @Test
     @Order(2)
-    void getAllDescriptorsTest(){
+     void getAllDescriptorsTest(){
         assertDoesNotThrow(()->{
             
             //test
@@ -69,7 +82,31 @@ public class imageDescriptorDaoSQLiteTest {
             assertEquals(ImageDescriptor.class, result.get(1).getClass());
         });
     }
+    
+    @Test
+    @Order(2)
+    void getDescriptorsByCategoryTest(){
 
+    }
+
+    @Test
+    @Order(2)
+    void getDescriptorsByGalleryTest(){
+
+    }
+
+    @Test
+    @Order(3)
+    void removeDescriptorFromCategoryTest(){
+
+    }
+
+    @Test
+    @Order(3)
+    void removeDescriptorFromGalleryTest(){
+
+    }
+    
     @Test
     @Order(3)
     void deleteDescriptorTest(){
