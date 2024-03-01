@@ -10,7 +10,7 @@ CREATE TABLE galleries (
 );
 CREATE TABLE categories (
 	nome TEXT,
-	inclusao INTEGER, Column1 TEXT(36),
+	inclusao INTEGER,
 	CONSTRAINT categories_PK PRIMARY KEY (nome)
 );
 CREATE TABLE imageGallery (

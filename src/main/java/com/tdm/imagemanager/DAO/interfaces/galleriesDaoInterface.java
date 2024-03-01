@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import com.tdm.imagemanager.classes.Gallery;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import java.lang.String;
-public interface galeriesDaoInterface{
+public interface galleriesDaoInterface{
     public ArrayList<Gallery> getAllGalleries()throws Exception;
     public ArrayList<Gallery> getGalleriesByDescriptorId(String id) throws Exception;
     public Gallery getOneGallery(String id)throws Exception;

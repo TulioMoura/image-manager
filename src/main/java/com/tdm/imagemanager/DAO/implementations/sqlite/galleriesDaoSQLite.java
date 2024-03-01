@@ -2,10 +2,10 @@ package com.tdm.imagemanager.DAO.implementations.sqlite;
 
 import java.util.ArrayList;
 
-import com.tdm.imagemanager.DAO.interfaces.galeriesDaoInterface;
+import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
 import com.tdm.imagemanager.classes.Gallery;
 
-public class galeriesDaoSQLite implements galeriesDaoInterface {
+public class galleriesDaoSQLite implements galleriesDaoInterface {
 
     public ArrayList<Gallery> getAllGalleries()throws Exception{
         return new ArrayList<Gallery>();
