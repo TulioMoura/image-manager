@@ -1,10 +1,13 @@
 package com.tdm.imagemanager.imageDescriptorDaoTests;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Order;
+
 import java.beans.Transient;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.*;
 
 import org.junit.jupiter.api.*;
@@ -57,6 +60,10 @@ public class imageDescriptorDaoSQLiteTest {
         galleriesDaoInterface galleryDao = new galleriesDaoSQLite();
         
         try {
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
+            PreparedStatement s = connection.prepareStatement("delete from galleries;delete from categories;delete from imageDescriptor;delete from imageCategories;delete from imageGalleries;");
+            s.execute();
+            connection.close();
             categoryDao.saveCategory(category1);
             categoryDao.saveCategory(category2);
             galleryDao.saveGallery(gallery1);

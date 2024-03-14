@@ -54,4 +54,11 @@ public class Gallery{
         this.dataInclusão = new Date(); 
         this.images = new ArrayList<String>();
     }
+
+    public Gallery(String nome, String id, long created_at){
+        this.uuid = id;
+        this.setName(nome);
+        this.dataInclusão = new Date(created_at); 
+        this.images = new ArrayList<String>();
+    }
 }

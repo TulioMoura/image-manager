@@ -3,7 +3,7 @@ uploadDate INTEGER NOT NULL,
 characteristics TEXT(256) NOT NULL,
 CONSTRAINT imageDescriptor_pk PRIMARY KEY (uuid));
 CREATE TABLE galleries (
-	nome TEXT(64),
+	name TEXT(64),
 	id TEXT(36),
 	created_at INTEGER,
 	CONSTRAINT galleries_PK PRIMARY KEY (id)

@@ -1,7 +1,9 @@
 package com.tdm.imagemanager.galleriesDaoTests;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -12,16 +14,24 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.tdm.imagemanager.DAO.implementations.sqlite.galeriesDaoSQLite;
+import com.tdm.imagemanager.DAO.implementations.sqlite.galleriesDaoSQLite;
 import com.tdm.imagemanager.classes.Gallery;
 
 public class galleriesDaoSqliteTests {
-    private final galeriesDaoSQLite galleryDao = new galeriesDaoSQLite();
+    private final galleriesDaoSQLite galleryDao = new galleriesDaoSQLite();
     private static Gallery gallery1, gallery2;
 
      @BeforeAll
-     static void initGalleries(){
-        UUID id1 = UUID.randomUUID();
+     static void initEnvironment(){
+        try{
+         Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
+         PreparedStatement s = connection.prepareStatement("delete from galleries;delete from categories;delete from imageDescriptor;delete from imageCategories;delete from imageGalleries;");
+         s.execute();
+         connection.close();
+      }catch(Exception ex){
+         System.out.println(ex);
+      }
+         UUID id1 = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
         gallery1 = new Gallery("familia", id1.toString() );
         gallery2 = new Gallery("carros", id2.toString());
@@ -55,6 +65,9 @@ public class galleriesDaoSqliteTests {
      void getAllGalleriesTest(){
         assertDoesNotThrow(()->{
             ArrayList<Gallery> result = galleryDao.getAllGalleries();
+            for(Gallery  g : result){
+               System.out.println(g.getId()+"test");
+            }
             assertEquals(2,result.size());
         });
      }

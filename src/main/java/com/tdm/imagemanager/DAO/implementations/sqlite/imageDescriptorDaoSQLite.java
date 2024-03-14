@@ -22,7 +22,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     }
 
     
-    public boolean saveDescriptor(ImageDescriptor imageDescriptor)throws Exception{
+    public boolean saveDescriptor(ImageDescriptor imageDescriptor, ArrayList<String> categoriesIds, ArrayList<String> galleriesIds)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             ArrayList<String> characteristicsArrayList = imageDescriptor.getCharacteristics();
@@ -42,6 +42,9 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             PreparedStatement s = c.prepareStatement("INSERT INTO imageDescriptor (uuid, uploadDate,characteristics)"
                     + "VALUES ('"+ imageDescriptor.getId() + "','" + imageDescriptor.getDate().getTime() + "','" +characteristics +"');");
             boolean execute = s.execute();
+
+            addDescriptorToCategories(imageDescriptor.getId(),categoriesIds );
+            addDescriptorToGalleries(imageDescriptor.getId(), galleriesIds);
             return true;
         } catch (SQLException ex) {
             
@@ -54,8 +57,18 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             c.close();
         }
     };
-    
-    public ImageDescriptor getOneDescriptor(String id)throws Exception{
+    public boolean addDescriptorToCategories(String idDescriptor, ArrayList<String> categoriesIds)throws Exception{
+
+        return true;
+    }
+
+    public boolean addDescriptorToGalleries(String idDescriptor, ArrayList<String> galleriesIds) throws Exception{
+
+        return true;
+    }
+
+
+    public ImageDescriptor getDescriptor(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
 
@@ -95,6 +108,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     
     };
     public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception{
+
         Connection c = connect(); //abre a conexão com o bd
         try{
 
@@ -133,6 +147,22 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         }
 
     };
+
+    public ArrayList<String> findByCategory(String id){
+        return new ArrayList<String>();
+    }
+
+    public ArrayList<String> findByGallery(String id){
+        return new ArrayList<String>();
+    }
+
+    public boolean removeDescriptorFromCategory(String idDescriptor, String idCategory){
+        return true;
+    }
+
+    public boolean removeDescriptorFromGallery(String idDescriptor, String idGallery){
+        return true;
+    }
     public boolean deleteDescriptor(String id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
