@@ -5,9 +5,10 @@ import com.tdm.imagemanager.classes.Category;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import java.lang.String;
 public interface categoriesDaoInterface{
-    public ArrayList<Category>getAllCategories() throws Exception;
-    public ArrayList<Category>getCategoriesByDescriptorId() throws Exception;
+    public Category addCategory(Category category) throws Exception;
+    public boolean updateCategory(Category category) throws Exception;
     public Category getOneCategory(String name) throws Exception;
-    public Category saveCategory(Category category) throws Exception;
-    public void deleteDescriptor(String nome) throws Exception;
+    public ArrayList<Category>getCategoriesByDescriptorId() throws Exception;
+    public ArrayList<Category>getAllCategories() throws Exception;
+    public void removeCategory(String nome) throws Exception;
 }

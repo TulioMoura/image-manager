@@ -57,17 +57,86 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             c.close();
         }
     };
-    public boolean addDescriptorToCategories(String idDescriptor, ArrayList<String> categoriesIds)throws Exception{
+    public boolean removeDescriptor(String id) throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
 
+            String query = "delete from imageDescriptor where uuid='"+id+"';";
+            PreparedStatement s = c.prepareStatement(query);
+            boolean res = s.execute();
+            int updatedRows = s.getUpdateCount();
+            s.close();
+            if(updatedRows == 1 ){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            
+            throw new Exception("sql exception: " + ex.getMessage());
+
+            
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
+    };
+
+    //not implemented
+    public boolean addDescriptorToCategory(String descriptorId, String categoryId) throws Exception{
         return true;
     }
-
+    //not implemented
+    public boolean addDescriptorToCategories(String descriptorId, ArrayList<String> categoriesIds)throws Exception{
+        return true;
+    }
+    //not implemented
+    public boolean addDescriptorsToCategory(ArrayList<String> descriptorsIds, String categoryId)throws Exception{
+        return true;
+    }
+    //not implemented
+    public boolean removeDescriptorFromCategory(String idDescriptor, String idCategory){
+        return true;
+    }
+    //not implemented
+    public boolean removeDescriptorsFromCategory(ArrayList<String> descriptorIds, String categoryId) throws Exception{
+        return true;
+    }
+    //not implemented 
+    public boolean removeDescriptorFromCategories(String descriptorId, ArrayList<String> categoriesIds) throws Exception{
+        return true;
+    }
+    
+    
+    
+    //not implemented
+    public boolean addDescriptorToGallery(String descriptorId, String galleryId) throws Exception{
+        return true;
+    }
+    //not implemented
     public boolean addDescriptorToGalleries(String idDescriptor, ArrayList<String> galleriesIds) throws Exception{
-
         return true;
     }
-
-
+    //not implemented
+    public boolean addDescriptorsToGallery(ArrayList<String> descriptorsIds, String galleryId) throws Exception {
+        return true;
+    }
+    //not implemented
+    public boolean removeDescriptorFromGallery(String idDescriptor, String idGallery){
+        return true;
+    }
+    //not implemented
+    public boolean removeDescriptorsFromGallery(ArrayList<String> descriptorsIds, String galleryId) throws Exception{
+        return true;
+    }
+    //not implemented
+    public boolean removeDescriptorFromGalleries(String descriptorId, ArrayList<String> galleriesIds) throws Exception{
+        return true;
+    }
+    
+    
     public ImageDescriptor getDescriptor(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
@@ -147,46 +216,12 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         }
 
     };
-
+    
     public ArrayList<String> findByCategory(String id){
         return new ArrayList<String>();
     }
-
     public ArrayList<String> findByGallery(String id){
         return new ArrayList<String>();
     }
-
-    public boolean removeDescriptorFromCategory(String idDescriptor, String idCategory){
-        return true;
-    }
-
-    public boolean removeDescriptorFromGallery(String idDescriptor, String idGallery){
-        return true;
-    }
-    public boolean deleteDescriptor(String id) throws Exception{
-        Connection c = connect(); //abre a conexão com o bd
-        try{
-
-            String query = "delete from imageDescriptor where uuid='"+id+"';";
-            PreparedStatement s = c.prepareStatement(query);
-            boolean res = s.execute();
-            int updatedRows = s.getUpdateCount();
-            s.close();
-            if(updatedRows == 1 ){
-                return true;
-            }
-            else{
-                return false;
-            }
-        } catch (SQLException ex) {
-            
-            throw new Exception("sql exception: " + ex.getMessage());
-
-            
-        }
-        finally{
-            //fecha a conexão com o bd
-            c.close();
-        }
-    };
+         
 }

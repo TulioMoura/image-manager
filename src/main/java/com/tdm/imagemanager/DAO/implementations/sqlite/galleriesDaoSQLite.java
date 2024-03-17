@@ -20,12 +20,48 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         return connection;
     }
 
-    public boolean saveGallery(Gallery gallery) throws Exception{
+    public boolean addGallery(Gallery gallery) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("INSERT INTO galleries (id, name, created_at)"
                     + "VALUES ('"+ gallery.getId() + "','" + gallery.getName() + "','" +gallery.getDate().getTime()+"');");
             s.execute();
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
+    }
+    public boolean updateGallery(Gallery gallery) throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            PreparedStatement s = c.prepareStatement("UPDATE gallery set "
+                    +"name = '"+gallery.getName()+"' WHERE id='"+gallery.getId()+"';");
+            s.execute();
+
+            imageDescriptorDaoInterface imageDescriptorDao = new imageDescriptorDaoSQLite();
+            ArrayList<String> databaseImageList = imageDescriptorDao.findByGallery(gallery.getId());
+            ArrayList<String> updatedImageList = gallery.getImages();
+            ArrayList<String> imagesToRemoveFromGallery = new ArrayList<String>();
+            ArrayList<String> imagesToAddToGallery = new ArrayList<String>();
+
+            for(String image : databaseImageList){
+                if(!updatedImageList.contains(image)){ 
+                    imageDescriptorDao.removeDescriptorFromGallery(image, gallery.getId());
+                }
+            }
+            for(String image : updatedImageList){
+                if(!databaseImageList.contains(image)){
+                    imageDescriptorDao.addDescriptorToGalleries(image, imagesToAddToGallery);
+                }
+            }
+
+
+
+
             return true;
         } catch (SQLException ex) {
             throw new Exception("sql exception: " + ex.getMessage());
@@ -127,7 +163,7 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         }
     }
         
-    public boolean deleteGallery(String id) throws Exception{
+    public boolean removeGallery(String id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM galleries,imageGallery where "
