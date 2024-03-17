@@ -49,4 +49,16 @@ public class Category{
         this.dataInclusão = new Date(); 
         this.images = new ArrayList<String>();
     }
+    public Category(String nome, Date createdAt){
+        this.setName(nome);
+        this.dataInclusão = createdAt;
+        this.images = new ArrayList<String>();
+    }
+
+    public Category (String nome, Date createdAt, ArrayList<String> images){
+        
+        this.setName(nome);
+        this.dataInclusão = createdAt;
+        this.images = images;
+    }
 }
