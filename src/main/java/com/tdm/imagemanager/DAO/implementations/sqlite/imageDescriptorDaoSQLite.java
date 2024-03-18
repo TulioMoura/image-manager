@@ -104,7 +104,6 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             c.close();
         }
     }
-    //not implemented
     public boolean addDescriptorToCategories(String descriptorId, ArrayList<String> categoriesIds)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
@@ -120,13 +119,40 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             c.close();
         }
     }
-    //not implemented
     public boolean addDescriptorsToCategory(ArrayList<String> descriptorsIds, String categoryId)throws Exception{
-        return true;
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            for(String descriptor:descriptorsIds){
+                addDescriptorToCategory(descriptor, categoryId);
+            }
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
-    //not implemented
-    public boolean removeDescriptorFromCategory(String idDescriptor, String idCategory){
-        return true;
+    public boolean removeDescriptorFromCategory(String descriptorId, String categoryId)throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+              
+            
+            //System.out.println(characteristics);
+
+            PreparedStatement s = c.prepareStatement("delete from image_category where"
+                    + "category_id == '"+ categoryId + "', descriptor_id'" + descriptorId + "');");
+            boolean execute = s.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
     //not implemented
     public boolean removeDescriptorsFromCategory(ArrayList<String> descriptorIds, String categoryId) throws Exception{
