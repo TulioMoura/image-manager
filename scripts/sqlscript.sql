@@ -20,7 +20,7 @@ CREATE TABLE image_gallery (
 	CONSTRAINT ImageGallery_FK FOREIGN KEY (image_id) REFERENCES img_descriptor(uuid),
 	CONSTRAINT ImageGallery_FK_1 FOREIGN KEY (gallery_id) REFERENCES gallery(id)
 );
-CREATE TABLE image_categories (
+CREATE TABLE image_category (
 	category_name TEXT(36),
 	image_id TEXT(36),
 	CONSTRAINT imageCategories_PK PRIMARY KEY (category_name,image_id),
