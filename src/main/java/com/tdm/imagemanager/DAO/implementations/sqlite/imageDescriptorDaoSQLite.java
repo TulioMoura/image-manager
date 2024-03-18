@@ -353,11 +353,58 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
 
     };
     
-    public ArrayList<String> findByCategory(String id){
-        return new ArrayList<String>();
+    public ArrayList<String> findByCategory(String id)throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            String query = "select uuid from imgDescriptor, image_category where image_category.category_name =='"+
+                            id+"' AND image_category.image_id == imgDescriptor.uuid;";
+            PreparedStatement s = c.prepareStatement(query);
+            ResultSet result = s.executeQuery();            
+            ArrayList<String> response = new ArrayList<String>();
+            do{
+                String row_id = result.getString("uuid");
+                response.add(row_id);
+                result.next();
+            } while(result.next());
+            s.close();
+            return response;
+            
+
+        } catch (SQLException ex) {
+            
+            throw new Exception("sql exception: " + ex.getMessage());
+
+            
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
-    public ArrayList<String> findByGallery(String id){
-        return new ArrayList<String>();
+    public ArrayList<String> findByGallery(String id)throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            String query = "select uuid from imgDescriptor, image_gallery where image_gallery.gallery_id =='"+
+                            id+"' AND image_gallery.image_id == imgDescriptor.uuid;";
+            PreparedStatement s = c.prepareStatement(query);
+            ResultSet result = s.executeQuery();            
+            ArrayList<String> response = new ArrayList<String>();
+            do{
+                String row_id = result.getString("uuid");
+                response.add(row_id);
+                result.next();
+            } while(result.next());
+            s.close();
+            return response;
+            
+
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());          
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
          
 }
