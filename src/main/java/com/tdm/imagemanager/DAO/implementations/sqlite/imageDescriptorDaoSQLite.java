@@ -207,7 +207,19 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     }
     //not implemented
     public boolean addDescriptorToGalleries(String idDescriptor, ArrayList<String> galleriesIds) throws Exception{
-        return true;
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            for(String gallery:galleriesIds){
+                addDescriptorToGallery(idDescriptor, gallery);
+            }
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
     //not implemented
     public boolean addDescriptorsToGallery(ArrayList<String> descriptorsIds, String galleryId) throws Exception {
