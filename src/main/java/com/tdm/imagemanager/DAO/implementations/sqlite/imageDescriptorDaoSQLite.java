@@ -142,7 +142,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             //System.out.println(characteristics);
 
             PreparedStatement s = c.prepareStatement("delete from image_category where"
-                    + "category_id == '"+ categoryId + "', descriptor_id'" + descriptorId + "');");
+                    + "category_name == '"+ categoryId + "', descriptor_id'" + descriptorId + "');");
             boolean execute = s.execute();
 
             return true;
@@ -238,15 +238,37 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         }
     }
     //not implemented
-    public boolean removeDescriptorFromGallery(String idDescriptor, String idGallery){
-        return true;
+    public boolean removeDescriptorFromGallery(String descriptorId, String galleryId)throws Exception{
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+              
+            
+            //System.out.println(characteristics);
+
+            PreparedStatement s = c.prepareStatement("delete from image_gallery where"
+                    + "gallery_id == '"+ galleryId + "', descriptor_id'" + descriptorId + "');");
+            s.execute();
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
     //not implemented
     public boolean removeDescriptorsFromGallery(ArrayList<String> descriptorsIds, String galleryId) throws Exception{
+        for(String descriptor:descriptorsIds){
+            removeDescriptorFromGallery(descriptor, galleryId);
+        }
         return true;
     }
     //not implemented
     public boolean removeDescriptorFromGalleries(String descriptorId, ArrayList<String> galleriesIds) throws Exception{
+        for(String gallery:galleriesIds){
+            removeDescriptorFromGallery(descriptorId,gallery);
+        }
         return true;
     }
     
