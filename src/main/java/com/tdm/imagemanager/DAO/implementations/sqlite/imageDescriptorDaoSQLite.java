@@ -170,7 +170,6 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             c.close();
         }
     }
-    //not implemented 
     public boolean removeDescriptorFromCategories(String descriptorId, ArrayList<String> categoriesIds) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
@@ -191,7 +190,20 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     
     //not implemented
     public boolean addDescriptorToGallery(String descriptorId, String galleryId) throws Exception{
-        return true;
+        Connection c = connect(); //abre a conexão com o bd
+        try{     
+            PreparedStatement s = c.prepareStatement("INSERT INTO image_gallery (gallery_id, image_id)"
+                    + "VALUES ('"+ galleryId + "','" + descriptorId + "');");
+            boolean execute = s.execute();
+
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
     //not implemented
     public boolean addDescriptorToGalleries(String idDescriptor, ArrayList<String> galleriesIds) throws Exception{
