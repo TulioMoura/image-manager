@@ -172,7 +172,19 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     }
     //not implemented 
     public boolean removeDescriptorFromCategories(String descriptorId, ArrayList<String> categoriesIds) throws Exception{
-        return true;
+        Connection c = connect(); //abre a conexão com o bd
+        try{
+            for(String category:categoriesIds){
+                removeDescriptorFromCategory(descriptorId, category);
+            }
+            return true;
+        } catch (SQLException ex) {
+            throw new Exception("sql exception: " + ex.getMessage());         
+        }
+        finally{
+            //fecha a conexão com o bd
+            c.close();
+        }
     }
     
     
