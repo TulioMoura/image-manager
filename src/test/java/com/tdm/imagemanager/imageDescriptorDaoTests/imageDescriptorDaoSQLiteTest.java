@@ -64,17 +64,17 @@ public class imageDescriptorDaoSQLiteTest {
             PreparedStatement s = connection.prepareStatement("delete from galleries;delete from categories;delete from imageDescriptor;delete from imageCategories;delete from imageGalleries;");
             s.execute();
             connection.close();
-            categoryDao.saveCategory(category1);
-            categoryDao.saveCategory(category2);
-            galleryDao.saveGallery(gallery1);
-            galleryDao.saveGallery(gallery2);
+            categoryDao.addCategory(category1);
+            categoryDao.addCategory(category2);
+            galleryDao.addGallery(gallery1);
+            galleryDao.addGallery(gallery2);
         } catch (Exception e) {
             System.err.println("Cannot insert categories to test environment"+ e.getMessage());
         }
 
         try {
-            galleryDao.saveGallery(gallery1);
-            galleryDao.saveGallery(gallery2);
+            galleryDao.addGallery(gallery1);
+            galleryDao.addGallery(gallery2);
             } catch (Exception e) {
                 System.err.println("Cannot insert galleries to test environment"+ e.getMessage());
             }
@@ -159,8 +159,8 @@ public class imageDescriptorDaoSQLiteTest {
     @Order(3)
     void deleteDescriptorTest(){
         assertDoesNotThrow(()->{
-            boolean result = imageDaoImpl.deleteDescriptor(descriptor1.getId());
-            boolean result2 = imageDaoImpl.deleteDescriptor(descriptor2.getId());
+            boolean result = imageDaoImpl.removeDescriptor(descriptor1.getId());
+            boolean result2 = imageDaoImpl.removeDescriptor(descriptor2.getId());
             assertTrue(result2);
             assertTrue(result);
         });

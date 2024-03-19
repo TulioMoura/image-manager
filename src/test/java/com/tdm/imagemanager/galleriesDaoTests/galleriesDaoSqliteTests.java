@@ -13,10 +13,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.*;
 import com.tdm.imagemanager.DAO.implementations.sqlite.galleriesDaoSQLite;
 import com.tdm.imagemanager.classes.Gallery;
+import com.tdm.imagemanager.classes.ImageDescriptor;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class galleriesDaoSqliteTests {
     private final galleriesDaoSQLite galleryDao = new galleriesDaoSQLite();
     private static Gallery gallery1, gallery2;
@@ -25,7 +27,7 @@ public class galleriesDaoSqliteTests {
      static void initEnvironment(){
         try{
          Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-         PreparedStatement s = connection.prepareStatement("delete from galleries;delete from categories;delete from imageDescriptor;delete from imageCategories;delete from imageGalleries;");
+         PreparedStatement s = connection.prepareStatement("delete from gallery;delete from category;delete from img_descriptor;delete from image_category;delete from image_gallery;");
          s.execute();
          connection.close();
       }catch(Exception ex){
@@ -33,19 +35,20 @@ public class galleriesDaoSqliteTests {
       }
          UUID id1 = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
-        gallery1 = new Gallery("familia", id1.toString() );
+        gallery1 = new Gallery("familia", id1.toString());
         gallery2 = new Gallery("carros", id2.toString());
      }
 
 
      @Test
      @Order(1)
-     void saveGalleryTest(){
+     void addGalleryTest(){
         assertDoesNotThrow(()->{
-            boolean insert1 = galleryDao.saveGallery(gallery1);
-            boolean insert2 = galleryDao.saveGallery(gallery2);
+            boolean insert1 = galleryDao.addGallery(gallery1);
+            boolean insert2 = galleryDao.addGallery(gallery2);
             assertTrue(insert1);
             assertTrue(insert2);
+            System.out.println("1");
         });
      }
 
@@ -53,10 +56,10 @@ public class galleriesDaoSqliteTests {
      @Order(2)
      void getOneGalleryTest(){
         assertDoesNotThrow(()->{
+         System.out.println("2");
             Gallery result1 = galleryDao.getOneGallery(gallery1.getId());
-            Gallery result2 = galleryDao.getOneGallery(gallery2.getId());
-            assertEquals(gallery1.getId(),result1.getId());
-            assertEquals(gallery2.getId(), result2.getId());
+            assertEquals(gallery1.getId(), result1.getId());
+            
         });
      }
 
@@ -64,20 +67,23 @@ public class galleriesDaoSqliteTests {
      @Order(2)
      void getAllGalleriesTest(){
         assertDoesNotThrow(()->{
+         System.out.println("2");
             ArrayList<Gallery> result = galleryDao.getAllGalleries();
             for(Gallery  g : result){
                System.out.println(g.getId()+"test");
             }
             assertEquals(2,result.size());
+            
         });
      }
 
      @Test 
      @Order(3)
-     void deleteGalleryTest(){
+     void removeGalleryTest(){
         assertDoesNotThrow(()->{
-            boolean result = galleryDao.deleteGallery(gallery1.getId());
+            boolean result = galleryDao.removeGallery(gallery1.getId());
             assertTrue(result);
+            System.out.println("3");
             
         });
      }

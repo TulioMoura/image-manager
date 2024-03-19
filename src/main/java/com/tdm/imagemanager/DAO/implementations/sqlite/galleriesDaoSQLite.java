@@ -5,14 +5,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+
 
 import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.Gallery;
 import com.tdm.imagemanager.classes.ImageDescriptor;
-
 public class galleriesDaoSQLite implements galleriesDaoInterface {
 
     private Connection connect() throws Exception{
@@ -23,15 +25,17 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
     public boolean addGallery(Gallery gallery) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("INSERT INTO galleries (id, name, created_at)"
+            PreparedStatement s = c.prepareStatement("INSERT INTO gallery (id, name, created_at)"
                     + "VALUES ('"+ gallery.getId() + "','" + gallery.getName() + "','" +gallery.getDate().getTime()+"');");
             s.execute();
+            
             return true;
         } catch (SQLException ex) {
             throw new Exception("sql exception: " + ex.getMessage());
         }
         finally{
             //fecha a conexão com o bd
+            System.out.println("closed_connadd");
             c.close();
         }
     }
@@ -45,7 +49,6 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
             imageDescriptorDaoInterface imageDescriptorDao = new imageDescriptorDaoSQLite();
             ArrayList<String> databaseImageList = imageDescriptorDao.findByGallery(gallery.getId());
             ArrayList<String> updatedImageList = gallery.getImages();
-            ArrayList<String> imagesToRemoveFromGallery = new ArrayList<String>();
             ArrayList<String> imagesToAddToGallery = new ArrayList<String>();
 
             for(String image : databaseImageList){
@@ -58,16 +61,14 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
                     imageDescriptorDao.addDescriptorToGalleries(image, imagesToAddToGallery);
                 }
             }
-
-
-
-
             return true;
         } catch (SQLException ex) {
             throw new Exception("sql exception: " + ex.getMessage());
         }
         finally{
             //fecha a conexão com o bd
+            
+            System.out.println("closed_connupdt");
             c.close();
         }
     }
@@ -75,25 +76,36 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
     public Gallery getOneGallery(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM galleries where "
-            +"id ='"+id+"';");
-            s.execute();
-            ResultSet result = s.getResultSet();
+            String query = "select * from gallery where id='"+id+"';";
+            PreparedStatement s = c.prepareStatement(query);
+            System.out.println(query);
+            ResultSet result = s.executeQuery();
+            int updatedRows = s.getUpdateCount();
+            System.out.println(updatedRows);
+           
+
             String name = result.getString("name");
+            System.out.println(name);
             long created_at = result.getLong("created_at");
             Gallery gallery =  new Gallery(name, id, created_at);
             imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQLite();
-            ArrayList<String> descriptor_ids  = descriptorDao.findByCategory(id);
+            ArrayList<String> descriptor_ids  = descriptorDao.findByGallery(id);
             for (String string : descriptor_ids) {
-                gallery.addImage(id);
+                gallery.addImage(string);
             }
-            return gallery;
 
+            return gallery;
+            
+            
+            
+            
         } catch (SQLException ex) {
             throw new Exception("sql exception: " + ex.getMessage());
         }
         finally{
             //fecha a conexão com o bd
+            
+            System.out.println("closed_conngetone");
             c.close();
         }
     }
@@ -101,8 +113,8 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
     public ArrayList<Gallery> getGalleriesByDescriptorId(String descriptor_id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM galleries, imageDescriptor,imageGallery where "
-            +"imageGallery.image_id =="+"'"+descriptor_id+"' AND galleries.id== imageGallery.gallery_id");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM gallery, img_descriptor,image_gallery where "
+            +"image_gallery.image_id =="+"'"+descriptor_id+"' AND gallery.id== image_gallery.gallery_id");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<Gallery> galleryList = new ArrayList<Gallery>();
@@ -127,6 +139,8 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
+            
+            System.out.println("closed_conngetbydescid");
             c.close();
         }
     }
@@ -134,13 +148,12 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
     public ArrayList<Gallery> getAllGalleries()throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM galleries");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM gallery");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<Gallery> galleryList = new ArrayList<Gallery>();
             
             while(result.next()){
-            System.out.println("itneeeee");
             String id = result.getString("id");
             String name = result.getString("name");
             long created_at = result.getLong("created_at");
@@ -159,6 +172,8 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
+            
+            System.out.println("closed_conngetallgall");
             c.close();
         }
     }
@@ -166,8 +181,8 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
     public boolean removeGallery(String id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM galleries,imageGallery where "
-            +"imageGallery.gallery_id =="+"'"+id+"' AND galleries.id == imageGallery.gallery_id");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM gallery,image_gallery where "
+            +"image_gallery.gallery_id =="+"'"+id+"' AND gallery.id == image_gallery.gallery_id");
             s.execute();
             return true;
             
@@ -176,6 +191,8 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
+            
+            System.out.println("closed_connremgal");
             c.close();
         }
 

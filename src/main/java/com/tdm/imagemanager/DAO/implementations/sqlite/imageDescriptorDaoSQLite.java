@@ -39,7 +39,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             }
             //System.out.println(characteristics);
 
-            PreparedStatement s = c.prepareStatement("INSERT INTO imageDescriptor (uuid, uploadDate,characteristics)"
+            PreparedStatement s = c.prepareStatement("INSERT INTO img_descriptor (uuid, uploadDate,characteristics)"
                     + "VALUES ('"+ imageDescriptor.getId() + "','" + imageDescriptor.getDate().getTime() + "','" +characteristics +"');");
             boolean execute = s.execute();
 
@@ -61,7 +61,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         Connection c = connect(); //abre a conexão com o bd
         try{
 
-            String query = "delete from imageDescriptor where uuid='"+id+"';";
+            String query = "delete from img_descriptor where uuid='"+id+"';";
             PreparedStatement s = c.prepareStatement(query);
             boolean res = s.execute();
             int updatedRows = s.getUpdateCount();
@@ -277,7 +277,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         Connection c = connect(); //abre a conexão com o bd
         try{
 
-            String query = "select * from imageDescriptor where uuid='"+id+"';";
+            String query = "select * from img_descriptor where uuid='"+id+"';";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();
             int updatedRows = s.getUpdateCount();
@@ -317,7 +317,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
         Connection c = connect(); //abre a conexão com o bd
         try{
 
-            String query = "select * from imageDescriptor;";
+            String query = "select * from img_descriptor;";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();
             //int updatedRows = s.getUpdateCount();
@@ -356,16 +356,16 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     public ArrayList<String> findByCategory(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            String query = "select uuid from imgDescriptor, image_category where image_category.category_name =='"+
-                            id+"' AND image_category.image_id == imgDescriptor.uuid;";
+            String query = "select uuid from img_descriptor, image_category where image_category.category_name =='"+
+                            id+"' AND image_category.image_id == img_descriptor.uuid;";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();            
             ArrayList<String> response = new ArrayList<String>();
-            do{
+            while(result.next()){
                 String row_id = result.getString("uuid");
                 response.add(row_id);
                 result.next();
-            } while(result.next());
+            } ;
             s.close();
             return response;
             
@@ -384,16 +384,17 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
     public ArrayList<String> findByGallery(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            String query = "select uuid from imgDescriptor, image_gallery where image_gallery.gallery_id =='"+
-                            id+"' AND image_gallery.image_id == imgDescriptor.uuid;";
+            String query = "select img_descriptor.uuid from img_descriptor, image_gallery where image_gallery.gallery_id ='"+
+                            id+"' AND image_gallery.image_id = img_descriptor.uuid;";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();            
             ArrayList<String> response = new ArrayList<String>();
-            do{
+            result.next();
+            System.out.println(query);
+            while(result.next()){
                 String row_id = result.getString("uuid");
                 response.add(row_id);
-                result.next();
-            } while(result.next());
+            } ;
             s.close();
             return response;
             
