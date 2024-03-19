@@ -24,8 +24,8 @@ import com.tdm.imagemanager.classes.*;
 public class imageDescriptorDaoSQLiteTest {
     private final imageDescriptorDaoInterface imageDaoImpl= new imageDescriptorDaoSQLite();
     private static  ImageDescriptor descriptor1, descriptor2;
-    private static Category category1, category2;
-    private static Gallery gallery1, gallery2;
+    private static Category category1, category2,category3,category4;
+    private static Gallery gallery1, gallery2,gallery3, gallery4;
     private static ArrayList<String> categoriesIds = new ArrayList<String>();
     private static ArrayList<String> galleriesIds= new ArrayList<String>();
 
@@ -44,12 +44,17 @@ public class imageDescriptorDaoSQLiteTest {
 
         category1 = new Category("carros");
         category2 = new Category("paisagens");
+        category3 = new Category("bicicletas");
+        category4 = new Category("praças");
 
         categoriesIds.add(category1.getName());
         categoriesIds.add(category2.getName());
 
+
         gallery1 = new Gallery("Fotos do natal", UUID.randomUUID().toString());
         gallery2 = new Gallery("Aniversário annia", UUID.randomUUID().toString());
+        gallery3 = new Gallery("missão strix",UUID.randomUUID().toString());
+        gallery4 = new Gallery("server update",UUID.randomUUID().toString());
 
         galleriesIds.add(gallery1.getId());
         galleriesIds.add(gallery2.getId());
@@ -61,13 +66,20 @@ public class imageDescriptorDaoSQLiteTest {
         
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-            PreparedStatement s = connection.prepareStatement("delete from galleries;delete from categories;delete from imageDescriptor;delete from imageCategories;delete from imageGalleries;");
-            s.execute();
+            String queries[]= {"image_gallery","image_category","category","gallery","img_descriptor"};
+            for(String query : queries){
+                PreparedStatement s = connection.prepareStatement("delete from "+query);
+                boolean result = s.execute();
+            }
             connection.close();
             categoryDao.addCategory(category1);
             categoryDao.addCategory(category2);
+            categoryDao.addCategory(category3);
+            categoryDao.addCategory(category4);
             galleryDao.addGallery(gallery1);
             galleryDao.addGallery(gallery2);
+            galleryDao.addGallery(gallery3);
+            galleryDao.addGallery(gallery4);
         } catch (Exception e) {
             System.err.println("Cannot insert categories to test environment"+ e.getMessage());
         }
@@ -85,8 +97,8 @@ public class imageDescriptorDaoSQLiteTest {
     @Order(1)
     void saveDescriptorTest(){
         assertDoesNotThrow(()->{
-            boolean result= imageDaoImpl.saveDescriptor(descriptor1,categoriesIds,galleriesIds);
-            boolean result2= imageDaoImpl.saveDescriptor(descriptor2,categoriesIds, galleriesIds);
+            boolean result= imageDaoImpl.saveDescriptor(descriptor1,new ArrayList<String>(),new ArrayList<String>());
+            boolean result2= imageDaoImpl.saveDescriptor(descriptor2,new ArrayList<String>(), new ArrayList<String>());
             assertTrue(result);
             assertTrue(result2);
         });
@@ -94,10 +106,42 @@ public class imageDescriptorDaoSQLiteTest {
 
     @Test
     @Order(2)
-    void addDescriptorToCategoriesTest(){
-
+    void addDescriptorToCategoryTest(){
+        assertDoesNotThrow(()->{
+            boolean result = imageDaoImpl.addDescriptorToCategory(descriptor1.getId(), category3.getName());
+            ArrayList<String> descriptors = imageDaoImpl.findByCategory(category3.getName());
+            assertEquals(1, descriptors.size());
+            assertEquals(descriptors.get(0),descriptor1.getId());
+        });
+        
     }
-
+    @Test
+    @Order(2)
+    void addDescriptorToCategoriesTest(){
+        assertDoesNotThrow(()->{
+            boolean result = imageDaoImpl.addDescriptorToCategories(descriptor2.getId(), categoriesIds);
+            assertTrue(result);
+            ArrayList<String> descriptors = imageDaoImpl.findByCategory(category1.getName());
+            assertEquals(1, descriptors.size());
+            assertEquals(descriptors.get(0),descriptor2.getId());
+            descriptors = imageDaoImpl.findByCategory(category2.getName());
+            assertEquals(1, descriptors.size());
+            assertEquals(descriptors.get(0),descriptor2.getId());
+        });
+    }
+    @Test
+    @Order(2)
+    void addDescriptorsToCategoryTest(){
+        assertDoesNotThrow(()->{
+            ArrayList<String> descriptors = new ArrayList<String>();
+            descriptors.add(descriptor1.getId());
+            descriptors.add(descriptor2.getId());
+            boolean result = imageDaoImpl.addDescriptorsToCategory(descriptors, category4.getName());
+            assertTrue(result);
+            ArrayList<String> addedDescriptors = imageDaoImpl.findByCategory(category4.getName());
+            assertEquals(2, addedDescriptors.size());
+        });
+    }
     @Test
     @Order(2)
     void addDescriptorToGalleriesTest(){
@@ -157,7 +201,7 @@ public class imageDescriptorDaoSQLiteTest {
     
     @Test
     @Order(3)
-    void deleteDescriptorTest(){
+    void removeDescriptorTest(){
         assertDoesNotThrow(()->{
             boolean result = imageDaoImpl.removeDescriptor(descriptor1.getId());
             boolean result2 = imageDaoImpl.removeDescriptor(descriptor2.getId());

@@ -9,9 +9,6 @@ import java.util.UUID;
 
 import javax.accessibility.AccessibleAttributeSequence;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import com.tdm.imagemanager.DAO.implementations.sqlite.galleriesDaoSQLite;
@@ -27,8 +24,11 @@ public class galleriesDaoSqliteTests {
      static void initEnvironment(){
         try{
          Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-         PreparedStatement s = connection.prepareStatement("delete from gallery;delete from category;delete from img_descriptor;delete from image_category;delete from image_gallery;");
-         s.execute();
+         String queries[]= {"image_gallery","image_category","category","gallery","img_descriptor"};
+            for(String query : queries){
+                PreparedStatement s = connection.prepareStatement("delete from "+query);
+                boolean result = s.execute();
+            }
          connection.close();
       }catch(Exception ex){
          System.out.println(ex);
