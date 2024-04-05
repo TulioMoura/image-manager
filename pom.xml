@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
@@ -44,6 +44,9 @@
       <artifactId>org.jacoco.ant</artifactId>
       <version>0.8.8</version>
     </dependency>
+
+
+
 	</dependencies>
 
 	<build>
@@ -73,5 +76,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 
 </project>

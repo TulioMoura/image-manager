@@ -114,7 +114,7 @@ public class galleriesDaoSQLite implements galleriesDaoInterface {
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM gallery, img_descriptor,image_gallery where "
-            +"image_gallery.image_id =="+"'"+descriptor_id+"' AND gallery.id== image_gallery.gallery_id");
+            +"image_gallery.image_id =="+"'"+descriptor_id+"' AND gallery.id== image_gallery.gallery_id AND img_descriptor.uuid ==image_gallery.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<Gallery> galleryList = new ArrayList<Gallery>();

@@ -22,7 +22,7 @@ private Connection connect() throws Exception{
     public boolean addCategory(Category category) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("INSERT INTO categories (name, created_at)"
+            PreparedStatement s = c.prepareStatement("INSERT INTO category (name, created_at)"
                     + "VALUES ('" + category.getName() + "','" +category.getDate().getTime()+"');");
             s.execute();
             return true;
@@ -69,7 +69,7 @@ private Connection connect() throws Exception{
     public Category getOneCategory(String name)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM categories where "
+            PreparedStatement s = c.prepareStatement("SELECT * FROM category where "
             +"name ='"+name+"';");
             s.execute();
             ResultSet result = s.getResultSet();
@@ -94,8 +94,8 @@ private Connection connect() throws Exception{
     public ArrayList<Category> getCategoriesByDescriptorId(String descriptor_id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM categories, imageDescriptor,imageCategory where "
-            +"imageCategory.image_id =="+"'"+descriptor_id+"' AND categories.name== imageCategories.category");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM category, img_descriptor,image_category where "
+            +"image_category.image_id =="+"'"+descriptor_id+"' AND category.name== image_category.category_name AND img_descriptor.uuid == image_category.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<Category> categoryList = new ArrayList<Category>();
@@ -125,7 +125,7 @@ private Connection connect() throws Exception{
     public ArrayList<Category> getAllCategories()throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM categories");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM category");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<Category> categoryList = new ArrayList<Category>();
@@ -155,8 +155,8 @@ private Connection connect() throws Exception{
     public boolean removeCategory(String id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM categories,imageCategory where "
-            +"imageCategory.category =="+"'"+id+"' AND categories.name == imageCategory.category");
+            PreparedStatement s = c.prepareStatement("SELECT * FROM category,image_category where "
+            +"image_category.category =="+"'"+id+"' AND category.name == image_category.category_name");
             s.execute();
             return true;
             

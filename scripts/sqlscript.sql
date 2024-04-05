@@ -9,9 +9,9 @@ CREATE TABLE gallery (
 	CONSTRAINT gallery_PK PRIMARY KEY (id)
 );
 CREATE TABLE category (
-	nome TEXT,
+	name TEXT,
 	created_at INTEGER,
-	CONSTRAINT category_PK PRIMARY KEY (nome)
+	CONSTRAINT category_PK PRIMARY KEY (name)
 );
 CREATE TABLE image_gallery (
 	image_id TEXT(36),
@@ -25,6 +25,6 @@ CREATE TABLE image_category (
 	image_id TEXT(36),
 	CONSTRAINT imageCategories_PK PRIMARY KEY (category_name,image_id),
 	CONSTRAINT imageCategories_FK FOREIGN KEY (image_id) REFERENCES img_descriptor(uuid),
-	CONSTRAINT imageCategories_FK_1 FOREIGN KEY (category_name) REFERENCES category(nome)
+	CONSTRAINT imageCategories_FK_1 FOREIGN KEY (category_name) REFERENCES category(name)
 );
 

@@ -2,13 +2,21 @@ package com.tdm.imagemanager.classes;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.beans.ConstructorProperties;
 import java.lang.String;
 
 public class ImageDescriptor{
+    @JsonProperty("id")
     private String uuid;
+    @JsonProperty("uploadDate")
     private Date uploadDate;
+    @JsonProperty("characteristics")
     private ArrayList<String> characteristics;
 
+    
     public String getId(){
         return uuid;
     }
@@ -32,7 +40,7 @@ public class ImageDescriptor{
     }
 
 
-
+    @ConstructorProperties({"uuid","characteristics"})
     public ImageDescriptor(String uuid,ArrayList<String> characteristics){
         this.characteristics = characteristics;
         this.uuid = uuid;
@@ -44,4 +52,5 @@ public class ImageDescriptor{
         this.uuid = uuid;
         this.uploadDate = uploadDate;
     }
+
 }

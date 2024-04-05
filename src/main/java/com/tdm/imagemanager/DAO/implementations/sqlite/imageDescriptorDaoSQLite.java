@@ -94,6 +94,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             PreparedStatement s = c.prepareStatement("INSERT INTO image_category (category_name, image_id)"
                     + "VALUES ('"+ categoryId + "','" + descriptorId + "');");
             boolean execute = s.execute();
+            //System.out.println("desc: "+descriptorId+"  cat:"+categoryId);
 
             return true;
         } catch (SQLException ex) {
@@ -141,8 +142,8 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             
             //System.out.println(characteristics);
 
-            PreparedStatement s = c.prepareStatement("delete from image_category where"
-                    + "category_name == '"+ categoryId + "', descriptor_id'" + descriptorId + "');");
+            PreparedStatement s = c.prepareStatement("delete from image_category where "
+                    + "category_name == '"+ categoryId + "'and image_id=='" + descriptorId + "';");
             boolean execute = s.execute();
 
             return true;
@@ -245,8 +246,8 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             
             //System.out.println(characteristics);
 
-            PreparedStatement s = c.prepareStatement("delete from image_gallery where"
-                    + "gallery_id == '"+ galleryId + "', descriptor_id'" + descriptorId + "');");
+            PreparedStatement s = c.prepareStatement("delete from image_gallery where "
+                    + "gallery_id == '"+ galleryId + "'and image_id =='" + descriptorId + "';");
             s.execute();
             return true;
         } catch (SQLException ex) {
@@ -283,8 +284,8 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             int updatedRows = s.getUpdateCount();
             
             long updatedAt = result.getLong("uploadDate");
-            System.out.println(updatedAt);
-            System.out.println(new Date(updatedAt));
+            //System.out.println(updatedAt);
+            //System.out.println(new Date(updatedAt));
             String characteristicsString = result.getString("characteristics");
             //System.out.println(characteristicsString);
             s.close();
@@ -362,9 +363,10 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             ResultSet result = s.executeQuery();            
             ArrayList<String> response = new ArrayList<String>();
             while(result.next()){
+                System.out.println(result +" result");
                 String row_id = result.getString("uuid");
                 response.add(row_id);
-                result.next();
+                //result.next();
             } ;
             s.close();
             return response;
@@ -389,8 +391,7 @@ public class imageDescriptorDaoSQLite implements imageDescriptorDaoInterface{
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();            
             ArrayList<String> response = new ArrayList<String>();
-            result.next();
-            System.out.println(query);
+            //result.next();
             while(result.next()){
                 String row_id = result.getString("uuid");
                 response.add(row_id);
