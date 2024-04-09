@@ -11,7 +11,7 @@ import ij.plugin.PlugInInterpreter;
 
 public class imageDaoToLocalFolder implements imageDaoInterface{
     public File getImage(String id){
-        File image = new File("tmp/"+id+".png");
+        File image = new File("images/"+id+".png");
         return image;
     }
     public void saveImage(String temporaryPath,String id){
