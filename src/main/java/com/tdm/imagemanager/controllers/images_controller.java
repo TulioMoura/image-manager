@@ -25,7 +25,7 @@ import com.tdm.imagemanager.DAO.interfaces.imageDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import com.tdm.imagemanager.classes.descriptorFile;
-
+import com.tdm.imagemanager.utils.*;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -63,10 +63,7 @@ public class images_controller {
 	public void uploadImage( @RequestParam("id") String id , @RequestParam ("file") MultipartFile file){
 		String tmpFolder = Dotenv.load().get("TEMPORARY_FOLDER"); 
 		String filename = file.getOriginalFilename();
-		String[] filenameSplitted = filename.split("\\.");
-		String fileExtension = filenameSplitted[filenameSplitted.length -1 ];
-		System.out.println(filename);
-		System.out.println(fileExtension);
+		String fileExtension = Utils.getFileExtension(filename);
 
 		if ( ! imageDao.checkIfImageExists(id)){
 		Path temporaryPath = Paths.get(tmpFolder+id+"."+fileExtension); 
