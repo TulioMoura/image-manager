@@ -12,9 +12,9 @@ import java.util.*;
 
 import org.junit.jupiter.api.*;
 
-import com.tdm.imagemanager.DAO.implementations.sqlite.imageDescriptorDaoSQL;
-import com.tdm.imagemanager.DAO.implementations.sqlite.categoriesDaoSQL;
-import com.tdm.imagemanager.DAO.implementations.sqlite.galleriesDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.imageDescriptorDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.categoriesDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.galleriesDaoSQL;
 import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.categoriesDaoInterface;

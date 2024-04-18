@@ -1,6 +1,7 @@
 package com.tdm.imagemanager.controllers;
 
 
+import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tdm.imagemanager.DAO.implementations.localFolder.imageDaoToLocalFolder;
-import com.tdm.imagemanager.DAO.implementations.sqlite.imageDescriptorDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.imageDescriptorDaoSQL;
 import com.tdm.imagemanager.DAO.interfaces.imageDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 import com.tdm.imagemanager.classes.descriptorFile;
+
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @RestController
 public class images_controller {
@@ -57,27 +61,28 @@ public class images_controller {
 
 	@PostMapping("/images/upload")
 	public void uploadImage( @RequestParam("id") String id , @RequestParam ("file") MultipartFile file){
-		System.out.println(id);	
-		System.out.println(file.toString());
-		
-	
+		String tmpFolder = Dotenv.load().get("TEMPORARY_FOLDER"); 
+		String filename = file.getOriginalFilename();
+		String[] filenameSplitted = filename.split("\\.");
+		String fileExtension = filenameSplitted[filenameSplitted.length -1 ];
+		System.out.println(filename);
+		System.out.println(fileExtension);
+
+		if ( ! imageDao.checkIfImageExists(id)){
+		Path temporaryPath = Paths.get(tmpFolder+id+"."+fileExtension); 
 		try{
-			imageDao.getImage(id);
-		}
-		catch(Exception ex){
-			try{
-				imageDescriptorDao.getDescriptor(id);
-				Path temporaryPath = Paths.get("tmp/"); 
-				Path result = Files.write(temporaryPath,file.getBytes(), new OpenOption[0]) ;
-				imageDao.saveImage(result.toString(), id);
-				return;
-			}
-			catch(Exception execpt){
-				
-			}
-			return;
-		}
+			Path result = Files.write(temporaryPath,file.getBytes(), new OpenOption[0]) ;
+		imageDao.saveImage(result.toString(), id);
 		return;
-		 
+		}
+		catch (IOException ex){
+			System.out.println(ex);
+			return ;
+		}
+		}
+		else{
+			System.out.println("upload ja efetuado");
+			return; 
+		}
 	}  
 }

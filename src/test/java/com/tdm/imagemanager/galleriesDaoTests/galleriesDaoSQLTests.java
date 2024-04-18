@@ -11,7 +11,7 @@ import javax.accessibility.AccessibleAttributeSequence;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
-import com.tdm.imagemanager.DAO.implementations.sqlite.galleriesDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.galleriesDaoSQL;
 import com.tdm.imagemanager.classes.Gallery;
 import com.tdm.imagemanager.classes.ImageDescriptor;
 

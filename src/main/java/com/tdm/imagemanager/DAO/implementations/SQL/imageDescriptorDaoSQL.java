@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DAO.implementations.sqlite;
+package com.tdm.imagemanager.DAO.implementations.SQL;
 
 
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
@@ -277,6 +277,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
         return true;
     }
     
+    //public boolean checkIfDescriptorWasUploaded(String id) throws Exception;
     
     public ImageDescriptor getDescriptor(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd

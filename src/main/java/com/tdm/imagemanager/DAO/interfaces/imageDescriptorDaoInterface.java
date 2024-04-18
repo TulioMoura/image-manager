@@ -30,6 +30,7 @@ public interface imageDescriptorDaoInterface{
     public boolean removeDescriptorFromGalleries(String descriptorId, ArrayList<String> galleriesIds) throws Exception;
 
     //Get resource from database
+    //public boolean checkIfDescriptorWasUploaded(String id) throws Exception;
     public ImageDescriptor getDescriptor(String id)throws Exception;
     public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception;
 

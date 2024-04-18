@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.DAO.implementations.sqlite;
+package com.tdm.imagemanager.DAO.implementations.SQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
