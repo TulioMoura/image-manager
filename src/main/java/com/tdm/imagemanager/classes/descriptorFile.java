@@ -12,7 +12,7 @@ public class descriptorFile {
 
     descriptorFile(ImageDescriptor d, String base64Image){
         D = d;
-        path = image_raw.decode(base64Image);
+        path = imageRaw.decode(base64Image);
     }
 
     public ImageDescriptor getDescriptor(){

@@ -5,42 +5,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.UUID;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tdm.imagemanager.DAO.implementations.localFolder.imageDaoToLocalFolder;
 import com.tdm.imagemanager.DAO.implementations.SQL.imageDescriptorDaoSQL;
-import com.tdm.imagemanager.DAO.interfaces.imageDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.classes.ImageDescriptor;
-import com.tdm.imagemanager.classes.descriptorFile;
 import com.tdm.imagemanager.utils.*;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-public class images_controller {
+public class imagesController {
 	private static  imageDescriptorDaoInterface imageDescriptorDao = new imageDescriptorDaoSQL();
 	private static imageDaoToLocalFolder imageDao = new imageDaoToLocalFolder();
 	

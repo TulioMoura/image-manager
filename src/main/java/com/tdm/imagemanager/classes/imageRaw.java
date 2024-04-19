@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Base64;
-class image_raw {
+class imageRaw {
     static Path decode(String encodedImage){
         try{
             byte[] decodedBytes = Base64.getDecoder().decode(encodedImage);
