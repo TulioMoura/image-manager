@@ -1,6 +1,5 @@
 package com.tdm.imagemanager.classes;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
