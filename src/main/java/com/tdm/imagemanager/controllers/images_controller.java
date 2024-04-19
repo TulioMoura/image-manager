@@ -1,7 +1,10 @@
 package com.tdm.imagemanager.controllers;
 
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -11,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.UUID;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,6 +50,24 @@ public class images_controller {
 			ArrayList<ImageDescriptor> images = imageDescriptorDao.getAllDescriptors();
 
 			return images;
+		}
+		catch(Exception ex){
+			return null;
+		}
+		
+	}
+
+	@GetMapping(
+		value = "/image",
+		produces = MediaType.IMAGE_JPEG_VALUE)
+	public  byte[] getImage(@RequestParam String id) {
+		try{
+			File image = imageDao.getImage(id);
+			InputStream file = new FileInputStream(image);
+			//byte[] buffer = new byte[];
+			;
+			return IOUtils.toByteArray(file);
+			
 		}
 		catch(Exception ex){
 			return null;
@@ -103,4 +127,6 @@ public class images_controller {
 			System.out.println(exe);
 		}
 	}
+
+
 }
