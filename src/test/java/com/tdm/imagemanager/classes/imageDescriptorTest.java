@@ -8,6 +8,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
+
 class ImageDescriptorTest{
     private final ImageDescriptor imageDescriptorInstance = new ImageDescriptor("testeteste", new ArrayList<String>());
 

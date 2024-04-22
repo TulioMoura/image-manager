@@ -7,6 +7,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import com.tdm.imagemanager.classes.baseApplication.Category;
+
 class categoriesTest{
     private final Category category = new Category("teste");
 

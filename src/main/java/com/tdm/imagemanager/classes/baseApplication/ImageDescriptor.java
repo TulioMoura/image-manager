@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.classes;
+package com.tdm.imagemanager.classes.baseApplication;
 
 import java.util.ArrayList;
 import java.util.Date;

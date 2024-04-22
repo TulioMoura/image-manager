@@ -1,8 +1,9 @@
 package com.tdm.imagemanager.DAO.interfaces;
 import java.util.ArrayList;
 
-import com.tdm.imagemanager.classes.Gallery;
-import com.tdm.imagemanager.classes.ImageDescriptor;
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
+
 import java.lang.String;
 public interface galleriesDaoInterface{
     public boolean addGallery(Gallery gallery) throws Exception;

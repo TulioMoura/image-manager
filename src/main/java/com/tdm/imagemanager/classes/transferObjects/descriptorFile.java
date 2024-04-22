@@ -1,8 +1,9 @@
-package com.tdm.imagemanager.classes;
+package com.tdm.imagemanager.classes.transferObjects;
 
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
 
 public class descriptorFile {
     @JsonProperty("descriptor")

@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.classes;
+package com.tdm.imagemanager.classes.transferObjects;
 
 import java.io.IOException;
 import java.nio.file.Files;

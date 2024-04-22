@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tdm.imagemanager.DAO.implementations.localFolder.imageDaoToLocalFolder;
 import com.tdm.imagemanager.DAO.implementations.SQL.imageDescriptorDaoSQL;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
-import com.tdm.imagemanager.classes.ImageDescriptor;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
 import com.tdm.imagemanager.utils.*;
 
 import io.github.cdimascio.dotenv.Dotenv;

@@ -2,7 +2,7 @@ package com.tdm.imagemanager.DAO.implementations.SQL;
 
 
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
-import com.tdm.imagemanager.classes.ImageDescriptor;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

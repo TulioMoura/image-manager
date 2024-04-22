@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tdm.imagemanager.DAO.implementations.SQL.galleriesDaoSQL;
 import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
-import com.tdm.imagemanager.classes.Gallery;
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
+@RestController
 public class galleriesController {
     static final galleriesDaoInterface galleryDao = new galleriesDaoSQL();
     @GetMapping("/galleries")
@@ -46,6 +47,7 @@ public class galleriesController {
             return null;
         }
     }
+
     @DeleteMapping("/gallery")
     public void removeGallery(@RequestParam("id") String id){
         try {

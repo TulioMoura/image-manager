@@ -6,6 +6,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
+
 public class galleriesTest {
     private final Gallery gallery = new Gallery("teste", "uuidteste");
 

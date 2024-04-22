@@ -19,6 +19,9 @@ import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.categoriesDaoInterface;
 import com.tdm.imagemanager.classes.*;
+import com.tdm.imagemanager.classes.baseApplication.Category;
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class imageDescriptorDaoSQLTest {

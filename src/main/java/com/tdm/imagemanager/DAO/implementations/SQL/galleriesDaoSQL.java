@@ -14,8 +14,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
-import com.tdm.imagemanager.classes.Gallery;
-import com.tdm.imagemanager.classes.ImageDescriptor;
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
+import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
 public class galleriesDaoSQL implements galleriesDaoInterface {
 
     private Connection connect() throws Exception{

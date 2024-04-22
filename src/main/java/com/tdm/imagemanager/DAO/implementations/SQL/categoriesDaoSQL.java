@@ -13,8 +13,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 import com.tdm.imagemanager.DAO.interfaces.categoriesDaoInterface;
 import com.tdm.imagemanager.DAO.interfaces.imageDescriptorDaoInterface;
-import com.tdm.imagemanager.classes.Category;
-import com.tdm.imagemanager.classes.Gallery;
+import com.tdm.imagemanager.classes.baseApplication.Category;
+import com.tdm.imagemanager.classes.baseApplication.Gallery;
 
 public class categoriesDaoSQL implements categoriesDaoInterface {
 private Connection connect() throws Exception{
