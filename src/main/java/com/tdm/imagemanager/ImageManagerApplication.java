@@ -13,6 +13,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
@@ -32,16 +35,11 @@ public class ImageManagerApplication {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx){
 		return args -> {
 
-			System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
-			}
+			System.out.println("server running");
 
 		};
 	}
 
 
 }
+
