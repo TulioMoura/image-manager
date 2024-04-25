@@ -1,5 +1,6 @@
 package com.tdm.imagemanager.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,7 @@ import com.tdm.imagemanager.classes.transferObjects.ImageGalleries.descriptorGal
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.servlet.http.HttpServletResponse;
-
+@CrossOrigin
 @RestController
 public class galleriesImagesController {
     private static final imageDescriptorDaoInterface imageDao = new imageDescriptorDaoSQL();
