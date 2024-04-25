@@ -112,27 +112,18 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
     }
 
-    public ArrayList<Gallery> getGalleriesByDescriptorId(String descriptor_id) throws Exception{
+    public ArrayList<String> getGalleriesByDescriptorId(String descriptor_id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM gallery, img_descriptor,image_gallery where "
+            PreparedStatement s = c.prepareStatement("SELECT id FROM gallery, img_descriptor,image_gallery where "
             +"image_gallery.image_id =="+"'"+descriptor_id+"' AND gallery.id== image_gallery.gallery_id AND img_descriptor.uuid ==image_gallery.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
-            ArrayList<Gallery> galleryList = new ArrayList<Gallery>();
+            ArrayList<String> galleryList = new ArrayList<String>();
             
             while(result.next()){
-                String name = result.getString("name");
-            long created_at = result.getLong("created_at");
             String id = result.getString("id");
-            Gallery gallery =  new Gallery(name, id, created_at);
-            imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
-            ArrayList<String> descriptor_ids  = descriptorDao.findByCategory(id);
-            for (String string : descriptor_ids) {
-                gallery.addImage(id);
-            }
-            System.out.println(gallery.getId());
-            galleryList.add(gallery);
+            galleryList.add(id);
             };         
             return galleryList;
             
@@ -147,25 +138,17 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
     }
 
-    public ArrayList<Gallery> getAllGalleries()throws Exception{
+    public ArrayList<String> getAllGalleries()throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            PreparedStatement s = c.prepareStatement("SELECT * FROM gallery");
+            PreparedStatement s = c.prepareStatement("SELECT id FROM gallery");
             s.execute();
             ResultSet result = s.getResultSet();
-            ArrayList<Gallery> galleryList = new ArrayList<Gallery>();
+            ArrayList<String> galleryList = new ArrayList<String>();
             
             while(result.next()){
             String id = result.getString("id");
-            String name = result.getString("name");
-            long created_at = result.getLong("created_at");
-            Gallery gallery =  new Gallery(name, id, created_at);
-            imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
-            ArrayList<String> descriptor_ids  = descriptorDao.findByCategory(id);
-            for (String string : descriptor_ids) {
-                gallery.addImage(string);
-            }
-            galleryList.add(gallery);
+            galleryList.add(id);
             };         
             return galleryList;
             
@@ -173,9 +156,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
             throw new Exception("sql exception: " + ex.getMessage());
         }
         finally{
-            //fecha a conexão com o bd
-            
-            System.out.println("closed_conngetallgall");
             c.close();
         }
     }
