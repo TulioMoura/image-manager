@@ -37,3 +37,4 @@ imagemanagerdb.sqlite
 .env
 *.sqlite
 imagemg.sqlite
+imagemg.sqlite
