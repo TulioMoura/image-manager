@@ -95,25 +95,19 @@ private Connection connect() throws Exception{
         }
     }
 
-    public ArrayList<Category> getCategoriesByDescriptorId(String descriptor_id) throws Exception{
+    public ArrayList<String> getCategoriesByDescriptorId(String descriptor_id) throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM category, img_descriptor,image_category where "
             +"image_category.image_id =="+"'"+descriptor_id+"' AND category.name== image_category.category_name AND img_descriptor.uuid == image_category.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
-            ArrayList<Category> categoryList = new ArrayList<Category>();
+            ArrayList<String> categoryList = new ArrayList<String>();
             
             while(result.next()){
                 String name = result.getString("name");
-            long created_at = result.getLong("created_at");
-            Category category =  new Category(name, new Date(created_at));
-            imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
-            ArrayList<String> descriptor_ids  = descriptorDao.findByCategory(name);
-            for (String string : descriptor_ids) {
-                category.addImage(string);
-            }
-            categoryList.add(category);
+            
+            categoryList.add(name);
             };         
             return categoryList;
             
@@ -126,24 +120,17 @@ private Connection connect() throws Exception{
         }
     }
 
-    public ArrayList<Category> getAllCategories()throws Exception{
+    public ArrayList<String> getAllCategories()throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM category");
             s.execute();
             ResultSet result = s.getResultSet();
-            ArrayList<Category> categoryList = new ArrayList<Category>();
+            ArrayList<String> categoryList = new ArrayList<String>();
             
             while(result.next()){
             String name = result.getString("name");
-            long createdAt = result.getLong("createdAt");
-            Category category =  new Category(name,new Date(createdAt));
-            imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
-            ArrayList<String> descriptor_ids  = descriptorDao.findByCategory(name);
-            for (String string : descriptor_ids) {
-                category.addImage(string);
-            }
-            categoryList.add(category);
+            categoryList.add(name);
             };         
             return categoryList;
             
