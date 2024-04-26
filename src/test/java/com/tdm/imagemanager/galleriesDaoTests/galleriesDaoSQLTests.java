@@ -12,8 +12,11 @@ import javax.accessibility.AccessibleAttributeSequence;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import com.tdm.imagemanager.DAO.implementations.SQL.galleriesDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.initSQLDB;
 import com.tdm.imagemanager.classes.baseApplication.Gallery;
 import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class galleriesDaoSQLTests {
@@ -22,17 +25,13 @@ public class galleriesDaoSQLTests {
 
      @BeforeAll
      static void initEnvironment(){
-        try{
-         Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-         String queries[]= {"image_gallery","image_category","category","gallery","img_descriptor"};
-            for(String query : queries){
-                PreparedStatement s = connection.prepareStatement("delete from "+query);
-                boolean result = s.execute();
-            }
-         connection.close();
-      }catch(Exception ex){
-         System.out.println(ex);
-      }
+      Dotenv environment = Dotenv.load();
+      String db_url = environment.get((System.getProperty("TEST")=="TRUE")? "TESTING_DATABASE_URL":"DATABASE_URL");
+      System.out.println(db_url);
+      System.out.println("here !!");
+      initSQLDB.cleanup(db_url);
+      
+      
          UUID id1 = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
         gallery1 = new Gallery("familia", id1.toString());
@@ -68,10 +67,8 @@ public class galleriesDaoSQLTests {
      void getAllGalleriesTest(){
         assertDoesNotThrow(()->{
          System.out.println("2");
-            ArrayList<Gallery> result = galleryDao.getAllGalleries();
-            for(Gallery  g : result){
-               System.out.println(g.getId()+"test");
-            }
+            ArrayList<String> result = galleryDao.getAllGalleries();
+            
             assertEquals(2,result.size());
             
         });

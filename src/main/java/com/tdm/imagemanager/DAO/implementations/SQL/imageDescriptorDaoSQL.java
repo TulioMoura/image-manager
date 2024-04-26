@@ -21,7 +21,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
 
     private Connection connect() throws Exception{
         Dotenv environment = Dotenv.load();
-        Connection connection = DriverManager.getConnection(environment.get("DATABASE_URL"));
+        Connection connection = DriverManager.getConnection(environment.get(System.getProperty("TEST")=="TRUE"? "TESTING_DATABASE_URL":"DATABASE_URL"));
         return connection;
     }
 
@@ -318,28 +318,20 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
         }
     
     };
-    public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception{
+    public ArrayList<String>getAllDescriptors()throws Exception{
 
         Connection c = connect(); //abre a conexão com o bd
         try{
 
-            String query = "select * from img_descriptor;";
+            String query = "select uuid from img_descriptor;";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();
             //int updatedRows = s.getUpdateCount();
             
-            ArrayList<ImageDescriptor> response = new ArrayList<ImageDescriptor>();
+            ArrayList<String> response = new ArrayList<String>();
             do{
                 String id = result.getString("uuid");
-                long updatedAt = result.getLong("uploadDate");
-                String characteristicsString = result.getString("characteristics");
-                String characteristicsArray[] = characteristicsString.split("\n");
-                ArrayList<String> characteristicsArrayList = new ArrayList<String>();
-                for (String string : characteristicsArray) {
-                    characteristicsArrayList.add(string);
-                }
-                ImageDescriptor img = new ImageDescriptor(id,new Date(updatedAt),characteristicsArrayList);
-                response.add(img);
+                response.add(id);
                 result.next();
             } while(result.next());
             s.close();

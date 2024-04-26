@@ -29,7 +29,7 @@ public class galleriesController {
             return null;
         }
         
-    } 
+    }  
     @GetMapping("/galleries/{id}")
     public Gallery getOneGallery(@PathVariable("id") String id){
         try {

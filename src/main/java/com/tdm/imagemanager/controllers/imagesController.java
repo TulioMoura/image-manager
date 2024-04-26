@@ -40,9 +40,9 @@ public class imagesController {
 	private static imageDaoToLocalFolder imageDao = new imageDaoToLocalFolder();
 	
     @GetMapping("/images")
-	public ArrayList<ImageDescriptor> index() {
+	public ArrayList<String> index() {
 		try{
-			ArrayList<ImageDescriptor> images = imageDescriptorDao.getAllDescriptors();
+			ArrayList<String> images = imageDescriptorDao.getAllDescriptors();
 
 			return images;
 		}

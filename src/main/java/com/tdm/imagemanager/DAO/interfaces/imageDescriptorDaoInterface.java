@@ -33,7 +33,7 @@ public interface imageDescriptorDaoInterface{
     //Get resource from database
     //public boolean checkIfDescriptorWasUploaded(String id) throws Exception;
     public ImageDescriptor getDescriptor(String id)throws Exception;
-    public ArrayList<ImageDescriptor>getAllDescriptors()throws Exception;
+    public ArrayList<String>getAllDescriptors()throws Exception;
 
     //Find resources on database
     public ArrayList<String>findByCategory(String id) throws Exception;

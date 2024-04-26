@@ -13,6 +13,7 @@ import java.util.*;
 import org.junit.jupiter.api.*;
 
 import com.tdm.imagemanager.DAO.implementations.SQL.imageDescriptorDaoSQL;
+import com.tdm.imagemanager.DAO.implementations.SQL.initSQLDB;
 import com.tdm.imagemanager.DAO.implementations.SQL.categoriesDaoSQL;
 import com.tdm.imagemanager.DAO.implementations.SQL.galleriesDaoSQL;
 import com.tdm.imagemanager.DAO.interfaces.galleriesDaoInterface;
@@ -22,6 +23,8 @@ import com.tdm.imagemanager.classes.*;
 import com.tdm.imagemanager.classes.baseApplication.Category;
 import com.tdm.imagemanager.classes.baseApplication.Gallery;
 import com.tdm.imagemanager.classes.baseApplication.ImageDescriptor;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class imageDescriptorDaoSQLTest {
@@ -34,6 +37,9 @@ public class imageDescriptorDaoSQLTest {
 
     @BeforeAll
     static void initDescriptor(){
+        Dotenv environment = Dotenv.load();
+        String db_url =environment.get(environment.get("TEST")=="TRUE"? "TESTING_DATABASE_URL":"DATABASE_URL");
+        initSQLDB.cleanup(db_url);
 
         ArrayList<String> caracteristics =  new ArrayList<String>();
         caracteristics.add("carro0");
@@ -68,13 +74,7 @@ public class imageDescriptorDaoSQLTest {
         galleriesDaoInterface galleryDao = new galleriesDaoSQL();
         
         try {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:imagemanagerdb.sqlite");
-            String queries[]= {"image_gallery","image_category","category","gallery","img_descriptor"};
-            for(String query : queries){
-                PreparedStatement s = connection.prepareStatement("delete from "+query);
-                boolean result = s.execute();
-            }
-            connection.close();
+            
             categoryDao.addCategory(category1);
             categoryDao.addCategory(category2);
             categoryDao.addCategory(category3);
@@ -206,10 +206,10 @@ public class imageDescriptorDaoSQLTest {
         assertDoesNotThrow(()->{
             
             //test
-            ArrayList<ImageDescriptor> result = imageDaoImpl.getAllDescriptors();
+            ArrayList<String> result = imageDaoImpl.getAllDescriptors();
             assertEquals(2,result.size());
-            assertEquals(ImageDescriptor.class, result.get(0).getClass());
-            assertEquals(ImageDescriptor.class, result.get(1).getClass());
+            assertEquals(String.class, result.get(0).getClass());
+            assertEquals(String.class, result.get(1).getClass());
         });
     }
     
@@ -251,7 +251,7 @@ public class imageDescriptorDaoSQLTest {
         assertDoesNotThrow(()->{
             imageDaoImpl.removeDescriptorFromCategories(descriptor2.getId(), categoriesIds);
             categoriesDaoInterface categoryDaoImpl = new categoriesDaoSQL();
-            ArrayList<Category> categories = categoryDaoImpl.getCategoriesByDescriptorId(descriptor2.getId());
+            ArrayList<String> categories = categoryDaoImpl.getCategoriesByDescriptorId(descriptor2.getId());
             assertEquals(1, categories.size());
         });
     }
@@ -285,7 +285,7 @@ public class imageDescriptorDaoSQLTest {
         assertDoesNotThrow(()->{
             imageDaoImpl.removeDescriptorFromGalleries(descriptor2.getId(), galleriesIds);
             galleriesDaoInterface galleryDaoImpl = new galleriesDaoSQL();
-            ArrayList<Gallery> galleries = galleryDaoImpl.getGalleriesByDescriptorId(descriptor2.getId());
+            ArrayList<String> galleries = galleryDaoImpl.getGalleriesByDescriptorId(descriptor2.getId());
             assertEquals(1, galleries.size());
           });
         
