@@ -148,7 +148,7 @@ private Connection connect() throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM category,image_category where "
-            +"image_category.category =="+"'"+id+"' AND category.name == image_category.category_name");
+            +"image_category.category_name =="+"'"+id+"' AND category.name == image_category.category_name");
             s.execute();
             return true;
             

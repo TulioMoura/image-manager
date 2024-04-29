@@ -1,4 +1,4 @@
-package com.tdm.imagemanager.classes;
+package com.tdm.imagemanager._classes;
 
 
 import java.util.ArrayList;
