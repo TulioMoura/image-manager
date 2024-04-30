@@ -84,6 +84,20 @@ public class imagesController {
 			return null;
 		}
 	}
+  
+
+	@DeleteMapping("/images")
+	public void deleteImage(@RequestParam("id") String id){
+		try{
+			imageDescriptorDao.removeDescriptor(id);
+			imageDao.deleteImage(id);
+			
+		}
+		catch(Exception exe)
+		{
+			System.out.println(exe);
+		}
+	}
 
 	@PostMapping("/images/upload")
 	public void uploadImage( @RequestParam("id") String id , @RequestParam ("file") MultipartFile file, HttpServletResponse response){
@@ -110,19 +124,66 @@ public class imagesController {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return; 
 		}
-	}  
+	}
 
-	@DeleteMapping("/images")
-	public void deleteImage(@RequestParam("id") String id){
+
+
+	@PostMapping("/images/categories")
+	public void addCategoriesToImage( @RequestParam("id") String id , @RequestBody ArrayList<String> categories, HttpServletResponse response){
+		
 		try{
-			imageDescriptorDao.removeDescriptor(id);
-			imageDao.deleteImage(id);
-			
+		 	imageDescriptorDao.addDescriptorToCategories(id,categories);
+			return;
 		}
-		catch(Exception exe)
-		{
-			System.out.println(exe);
+		catch (Exception ex){
+			System.out.println(ex);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ;
 		}
+		
+	}
+	@DeleteMapping("/images/categories")
+	public void removeCategoriesFromImage( @RequestParam("id") String id , @RequestBody ArrayList<String> categories, HttpServletResponse response){
+		
+		try{
+		 	imageDescriptorDao.removeDescriptorFromCategories(id, categories);
+			return;
+		}
+		catch (Exception ex){
+			System.out.println(ex);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ;
+		}
+		
+	}
+
+	@PostMapping("/images/galleries")
+	public void addGalleryToImage( @RequestParam("id") String id , @RequestBody ArrayList<String> galleries, HttpServletResponse response){
+		try{
+			imageDescriptorDao.addDescriptorToGalleries(id, galleries);
+			return;
+		}
+		catch (Exception ex){
+			System.out.println(ex);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ;
+		}
+		
+	}
+
+	@DeleteMapping("/images/galleries")
+	public void removeGalleriesFromImage( @RequestParam("id") String id , @RequestBody ArrayList<String> galleries, HttpServletResponse response){
+		
+		try{
+		 	imageDescriptorDao.removeDescriptorFromGalleries(id, galleries);
+			return;
+		}
+		catch (Exception ex){
+			System.out.println(ex);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return ;
+		}
+		
 	}
 
 
