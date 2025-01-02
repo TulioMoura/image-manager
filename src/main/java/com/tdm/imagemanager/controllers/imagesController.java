@@ -76,7 +76,6 @@ public class imagesController {
 		ImageDescriptor descriptor = new ImageDescriptor(characteristics);
 		imageDescriptorDao.saveDescriptor(descriptor, new ArrayList<String>(), new ArrayList<String>());
 		ImageDescriptor imageUploaded =  imageDescriptorDao.getDescriptor(descriptor.getId());
-		System.out.println(imageUploaded.getId());
 		return imageUploaded;
 		}
 		catch(Exception err){
@@ -120,7 +119,6 @@ public class imagesController {
 		}
 		}
 		else{
-			System.out.println("upload ja efetuado");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return; 
 		}

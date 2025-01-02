@@ -27,8 +27,6 @@ public class galleriesDaoSQLTests {
      static void initEnvironment(){
       Dotenv environment = Dotenv.load();
       String db_url =environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL");
-      System.out.println(db_url);
-      System.out.println("here !!");
       initSQLDB.cleanup(db_url);
       
       
@@ -47,7 +45,6 @@ public class galleriesDaoSQLTests {
             boolean insert2 = galleryDao.addGallery(gallery2);
             assertTrue(insert1);
             assertTrue(insert2);
-            System.out.println("1");
         });
      }
 
@@ -55,7 +52,6 @@ public class galleriesDaoSQLTests {
      @Order(2)
      void getOneGalleryTest(){
         assertDoesNotThrow(()->{
-         System.out.println("2");
             Gallery result1 = galleryDao.getOneGallery(gallery1.getId());
             assertEquals(gallery1.getId(), result1.getId());
             
@@ -66,7 +62,6 @@ public class galleriesDaoSQLTests {
      @Order(2)
      void getAllGalleriesTest(){
         assertDoesNotThrow(()->{
-         System.out.println("2");
             ArrayList<String> result = galleryDao.getAllGalleries();
             
             assertEquals(2,result.size());
@@ -80,7 +75,6 @@ public class galleriesDaoSQLTests {
         assertDoesNotThrow(()->{
             boolean result = galleryDao.removeGallery(gallery1.getId());
             assertTrue(result);
-            System.out.println("3");
             
         });
      }

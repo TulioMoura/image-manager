@@ -18,7 +18,6 @@ public class initSQLDB {
     }
 
     public static void cleanup(String db_url){
-            System.out.println("SETTING UP ENVIRONMENT");
             setup(db_url);
             try {        
                 Connection connection = DriverManager.getConnection(db_url);
@@ -27,7 +26,6 @@ public class initSQLDB {
                     PreparedStatement s = connection.prepareStatement("delete from "+query);
                     boolean result = s.execute();
                 }
-                System.out.println("DB CLEANED");
                 connection.close();
     
                 
@@ -59,9 +57,6 @@ public class initSQLDB {
                 }
                 index++;
         }
-
-
-        System.out.println(queries.toString());
         Statement stmt = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
         for (String string : queries) {
             stmt.addBatch(string);

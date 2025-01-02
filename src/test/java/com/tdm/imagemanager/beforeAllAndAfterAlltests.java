@@ -17,7 +17,6 @@ public class beforeAllAndAfterAlltests {
         System.out.println("SETTING UP ENVIRONMENT");
         try {
             Dotenv environment = Dotenv.load();
-            System.out.println(environment.get("TEST"));
             String db_url =environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL");
             initSQLDB.setup(db_url);
 

@@ -26,7 +26,6 @@ public class galleriesTest {
         String dateOnObjetct = gallery.getDate().toString().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
         String currentDate = new Date().toString().replaceAll("\\d\\d:\\d\\d:\\d\\d","00:00:00");
 
-        System.out.println(dateOnObjetct);
         assertEquals(currentDate, dateOnObjetct);
     }
 

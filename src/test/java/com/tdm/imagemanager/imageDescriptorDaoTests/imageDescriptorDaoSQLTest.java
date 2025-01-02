@@ -193,8 +193,6 @@ public class imageDescriptorDaoSQLTest {
     
         assertDoesNotThrow(()->{
             ImageDescriptor  result = imageDaoImpl.getDescriptor(descriptor1.getId());
-            System.out.println(descriptor1.getId()+" "+descriptor1.getDate()+" "+descriptor1.getCharacteristics());
-            System.out.println(result.getId()+" "+result.getDate()+" "+result.getCharacteristics());
             assertEquals(descriptor1.getId(), result.getId());
             assertEquals(descriptor1.getDate(), result.getDate());
             assertEquals(descriptor1.getCharacteristics(), result.getCharacteristics());

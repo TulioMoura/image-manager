@@ -25,12 +25,6 @@ import jakarta.servlet.ServletRegistration;
 public class ImageManagerApplication {
 
 	public static void main(String[] args) {
-
-			for (String string : args) {
-				System.out.println(string);
-			}
-			
-		
 		SpringApplication.run(ImageManagerApplication.class, args);
 	}
 

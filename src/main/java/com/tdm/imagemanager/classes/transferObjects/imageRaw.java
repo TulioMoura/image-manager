@@ -14,7 +14,7 @@ class imageRaw {
         return Files.write(temporaryPath,decodedBytes, StandardOpenOption.CREATE_NEW);
         }
         catch(IOException ex){
-            System.out.println("cannot write file");
+            System.out.println("Cannot Write File");
             System.out.println(ex);
             return null;
         }

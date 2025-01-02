@@ -37,7 +37,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
-            System.out.println("closed_connadd");
             c.close();
         }
     }
@@ -70,7 +69,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         finally{
             //fecha a conexão com o bd
             
-            System.out.println("closed_connupdt");
             c.close();
         }
     }
@@ -80,15 +78,10 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         try{
             String query = "select * from gallery where id='"+id+"';";
             PreparedStatement s = c.prepareStatement(query);
-            System.out.println(query);
             ResultSet result = s.executeQuery();
             result.next();
             int updatedRows = s.getUpdateCount();
-            System.out.println(updatedRows);
-           
-
             String name = result.getString("name");
-            System.out.println(name);
             long created_at = result.getLong("created_at");
             Gallery gallery =  new Gallery(name, id, created_at);
             imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
@@ -107,8 +100,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
-            
-            System.out.println("closed_conngetone");
             c.close();
         }
     }
@@ -133,8 +124,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
-            
-            System.out.println("closed_conn");
             c.close();
         }
     }
@@ -174,8 +163,6 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         }
         finally{
             //fecha a conexão com o bd
-            
-            System.out.println("closed_conn");
             c.close();
         }
 

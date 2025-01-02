@@ -33,7 +33,6 @@ public class imageDaoToLocalFolderTest {
         try{
         String result = imageDAO.deleteImage("testeteste123");
         assertEquals("Image deleted!",result);
-        System.out.println(result);
         }
         catch (IOException exe){
             System.out.println(exe);
