@@ -38,7 +38,8 @@ public class imageDescriptorDaoSQLTest {
     @BeforeAll
     static void initDescriptor(){
         Dotenv environment = Dotenv.load();
-        String db_url =environment.get(environment.get("TEST")=="TRUE"? "TESTING_DATABASE_URL":"DATABASE_URL");
+        
+        String db_url =environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL");
         initSQLDB.cleanup(db_url);
 
         ArrayList<String> caracteristics =  new ArrayList<String>();

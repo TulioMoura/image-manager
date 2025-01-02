@@ -19,8 +19,8 @@ import com.tdm.imagemanager.classes.baseApplication.Gallery;
 public class categoriesDaoSQL implements categoriesDaoInterface {
 private Connection connect() throws Exception{
     Dotenv environment = Dotenv.load();
-        
-        Connection connection = DriverManager.getConnection(environment.get(environment.get("TEST")=="TRUE"? "TESTING_DATABASE_URL":"DATABASE_URL"));
+    
+        Connection connection = DriverManager.getConnection(environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL"));
         return connection;
     }
 

@@ -24,7 +24,7 @@ public class categoriesDaoSQLTests {
      @BeforeAll
      static void initEnvironment(){
       Dotenv environment = Dotenv.load();
-      String db_url = environment.get((System.getProperty("TEST")=="TRUE")? "TESTING_DATABASE_URL":"DATABASE_URL");
+      String db_url =environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL");
       System.out.println(db_url);
       System.out.println("here !!");
       initSQLDB.cleanup(db_url);

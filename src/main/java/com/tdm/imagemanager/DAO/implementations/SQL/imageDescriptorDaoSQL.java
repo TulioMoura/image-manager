@@ -21,7 +21,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
 
     private Connection connect() throws Exception{
         Dotenv environment = Dotenv.load();
-        Connection connection = DriverManager.getConnection(environment.get(System.getProperty("TEST")=="TRUE"? "TESTING_DATABASE_URL":"DATABASE_URL"));
+        Connection connection = DriverManager.getConnection(environment.get(System.getProperty("TEST").equals("TRUE") ? "TESTING_DATABASE_URL":"DATABASE_URL"));
         return connection;
     }
 
