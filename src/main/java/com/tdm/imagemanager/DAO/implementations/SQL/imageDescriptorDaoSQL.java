@@ -147,7 +147,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
             //System.out.println(characteristics);
 
             PreparedStatement s = c.prepareStatement("delete from image_category where "
-                    + "category_name == '"+ categoryId + "'and image_id=='" + descriptorId + "';");
+                    + "category_name = '"+ categoryId + "'and image_id='" + descriptorId + "';");
             boolean execute = s.execute();
 
             return true;
@@ -251,7 +251,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
             //System.out.println(characteristics);
 
             PreparedStatement s = c.prepareStatement("delete from image_gallery where "
-                    + "gallery_id == '"+ galleryId + "'and image_id =='" + descriptorId + "';");
+                    + "gallery_id = '"+ galleryId + "'and image_id ='" + descriptorId + "';");
             s.execute();
             return true;
         } catch (SQLException ex) {
@@ -286,6 +286,7 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
             String query = "select * from img_descriptor where uuid='"+id+"';";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();
+            result.next();
             int updatedRows = s.getUpdateCount();
             
             long updatedAt = result.getLong("uploadDate");
@@ -329,11 +330,10 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
             //int updatedRows = s.getUpdateCount();
             
             ArrayList<String> response = new ArrayList<String>();
-            do{
+            while(result.next()){
                 String id = result.getString("uuid");
                 response.add(id);
-                result.next();
-            } while(result.next());
+            } ;
             s.close();
             return response;
             
@@ -354,8 +354,8 @@ public class imageDescriptorDaoSQL implements imageDescriptorDaoInterface{
     public ArrayList<String> findByCategory(String id)throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
-            String query = "select uuid from img_descriptor, image_category where image_category.category_name =='"+
-                            id+"' AND image_category.image_id == img_descriptor.uuid;";
+            String query = "select uuid from img_descriptor, image_category where image_category.category_name ='"+
+                            id+"' AND image_category.image_id = img_descriptor.uuid;";
             PreparedStatement s = c.prepareStatement(query);
             ResultSet result = s.executeQuery();            
             ArrayList<String> response = new ArrayList<String>();

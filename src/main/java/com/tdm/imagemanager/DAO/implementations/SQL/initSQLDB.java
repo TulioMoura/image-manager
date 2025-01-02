@@ -27,6 +27,7 @@ public class initSQLDB {
                     PreparedStatement s = connection.prepareStatement("delete from "+query);
                     boolean result = s.execute();
                 }
+                System.out.println("DB CLEANED");
                 connection.close();
     
                 

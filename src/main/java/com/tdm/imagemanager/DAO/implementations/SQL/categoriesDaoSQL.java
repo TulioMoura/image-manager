@@ -78,6 +78,7 @@ private Connection connect() throws Exception{
             +"name ='"+name+"';");
             s.execute();
             ResultSet result = s.getResultSet();
+            result.next();
             long createdAt = result.getLong("created_at");
             Category category =  new Category(name, new Date(createdAt));
             imageDescriptorDaoInterface descriptorDao = new imageDescriptorDaoSQL();
@@ -100,7 +101,7 @@ private Connection connect() throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM category, img_descriptor,image_category where "
-            +"image_category.image_id =="+"'"+descriptor_id+"' AND category.name== image_category.category_name AND img_descriptor.uuid == image_category.image_id");
+            +"image_category.image_id ="+"'"+descriptor_id+"' AND category.name= image_category.category_name AND img_descriptor.uuid = image_category.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<String> categoryList = new ArrayList<String>();
@@ -148,7 +149,7 @@ private Connection connect() throws Exception{
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM category,image_category where "
-            +"image_category.category_name =="+"'"+id+"' AND category.name == image_category.category_name");
+            +"image_category.category_name ="+"'"+id+"' AND category.name = image_category.category_name");
             s.execute();
             return true;
             

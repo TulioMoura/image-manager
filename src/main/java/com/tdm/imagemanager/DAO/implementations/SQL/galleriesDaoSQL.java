@@ -82,6 +82,7 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
             PreparedStatement s = c.prepareStatement(query);
             System.out.println(query);
             ResultSet result = s.executeQuery();
+            result.next();
             int updatedRows = s.getUpdateCount();
             System.out.println(updatedRows);
            
@@ -116,7 +117,7 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT id FROM gallery, img_descriptor,image_gallery where "
-            +"image_gallery.image_id =="+"'"+descriptor_id+"' AND gallery.id== image_gallery.gallery_id AND img_descriptor.uuid ==image_gallery.image_id");
+            +"image_gallery.image_id ="+"'"+descriptor_id+"' AND gallery.id= image_gallery.gallery_id AND img_descriptor.uuid =image_gallery.image_id");
             s.execute();
             ResultSet result = s.getResultSet();
             ArrayList<String> galleryList = new ArrayList<String>();
@@ -133,7 +134,7 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         finally{
             //fecha a conexão com o bd
             
-            System.out.println("closed_conngetbydescid");
+            System.out.println("closed_conn");
             c.close();
         }
     }
@@ -164,7 +165,7 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         Connection c = connect(); //abre a conexão com o bd
         try{
             PreparedStatement s = c.prepareStatement("SELECT * FROM gallery,image_gallery where "
-            +"image_gallery.gallery_id =="+"'"+id+"' AND gallery.id == image_gallery.gallery_id");
+            +"image_gallery.gallery_id ="+"'"+id+"' AND gallery.id = image_gallery.gallery_id");
             s.execute();
             return true;
             
@@ -174,7 +175,7 @@ public class galleriesDaoSQL implements galleriesDaoInterface {
         finally{
             //fecha a conexão com o bd
             
-            System.out.println("closed_connremgal");
+            System.out.println("closed_conn");
             c.close();
         }
 
